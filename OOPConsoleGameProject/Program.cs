@@ -17,7 +17,9 @@ class Program
 //todo 상세한 Scene의 구성(텍스트, 오브젝트 배치 등)은 기본 기능 설계 후 수정
 //# 2. Scene 구성
 //#    2-1. 상호작용 가능한 요소(아이템, 던전 입구, 문 등)
-//#         a. 우선적으로 맵 이동을 위한 Object를 먼저 생성
+//~         a. 우선적으로 맵 이동을 위한 Object를 먼저 생성
+//#         b. 던전에서 사용할 Rock, Goal 구현
+//#         c. 플레이어가 획득할 수 있는 Navigation, Letter, Key, MusicBox 구현
 //~    2-2. StartScene 클래스
 //~    2-3. EndScene 클래스
 //~    2-4. Scene 클래스
