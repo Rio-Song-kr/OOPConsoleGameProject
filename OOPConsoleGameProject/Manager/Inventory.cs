@@ -30,7 +30,7 @@ public class Inventory
 
     public void UseAt(int index)
     {
-        if (index < 0 || index >= _size) return;
+        if (index < 0 || index >= _size || index >= _items.Count) return;
 
         if (_items[index] is IUsable)
         {
