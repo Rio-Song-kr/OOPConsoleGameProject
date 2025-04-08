@@ -25,16 +25,16 @@ class Program
 //#    2-5. 시작화면 - Level 씬 사이 중간 씬
 //# 3. UI 구성
 //#    3-1. UIManager
-//# 4. Player
+//~ 4. Player
 //# 5. 입력
 //~    5-1. 모든 입력은 InputManager가 관리
-//todo 아래 두 개는 추후 고민이 필요함
 //#    5-2. 각 Scene의 Input은 InputManager의 결과를 체크
-//#    5-3. Player 등은 InputManager의 event를 구독
+//~    5-3. Player 등은 InputManager의 event를 구독
+//~    5-4. PressAnyKey 추가
 //# 6. Inventory
 //#    6-1. 아이템 추가(최대 3개)
 //#    6-2. UI 출력(UIManager를 통해 출력)
-//# 7. Render
-//#    7-1. 맵에서 플레이어가 이동(기존 소코반 방식)
+//# 7. Test를 위한 Render와 Update
+//~    7-1. 맵에서 플레이어가 이동(기존 소코반 방식)
 //~ 8. 추가사항
 //~    8-1. SceneManager 추가
