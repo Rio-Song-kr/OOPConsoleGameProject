@@ -4,7 +4,19 @@ public class LevelScene01 : Level
 {
     public static string Name;
 
-    public LevelScene01() { Name = "Level01"; }
+    public LevelScene01()
+    {
+        Name = "Level01";
+        MapData = new string[]
+        {
+            "########",
+            "#   #  #",
+            "#   #  #",
+            "### #  #",
+            "#      #",
+            "########"
+        };
+    }
 
     public override void OnEnter()
     {

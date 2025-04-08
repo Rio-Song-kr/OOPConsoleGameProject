@@ -2,22 +2,8 @@ namespace OOPConsoleGameProject;
 
 public class Level : Scene
 {
-    protected char[,] Map;
     protected string[] MapData;
     // protected List<GameObject> GameObjects;
-
-    public Level()
-    {
-        MapData = new string[]
-        {
-            "########",
-            "#   #  #",
-            "#   #  #",
-            "### #  #",
-            "#      #",
-            "########"
-        };
-    }
 
     public override void Render()
     {

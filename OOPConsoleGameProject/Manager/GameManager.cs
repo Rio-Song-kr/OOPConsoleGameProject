@@ -41,6 +41,8 @@ public class GameManager
         _scene.Add(SceneName.Start, new StartScene());
         _scene.Add(SceneName.End, new EndScene());
         _scene.Add(SceneName.Level01, new LevelScene01());
+        _scene.Add(SceneName.Level02, new LevelScene02());
+        _scene.Add(SceneName.Level03, new LevelScene03());
 
         //# 현재 Scene 설정
         _scene.Move(StartScene.Name);
