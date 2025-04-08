@@ -66,4 +66,6 @@ public class GameManager
     }
 
     private void End() { }
+
+    public void GameOver() { _isGameOver = true; }
 }
