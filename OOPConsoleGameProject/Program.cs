@@ -27,7 +27,8 @@ class Program
 //#    3-1. UIManager
 //# 4. Player
 //# 5. 입력
-//#    5-1. 모든 입력은 InputManager가 관리
+//~    5-1. 모든 입력은 InputManager가 관리
+//todo 아래 두 개는 추후 고민이 필요함
 //#    5-2. 각 Scene의 Input은 InputManager의 결과를 체크
 //#    5-3. Player 등은 InputManager의 event를 구독
 //# 6. Inventory
