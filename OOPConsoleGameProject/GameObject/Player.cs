@@ -1,13 +1,10 @@
 namespace OOPConsoleGameProject;
 
-public class Player
+public class Player : GameObject
 {
     static Player _instance;
 
-    public ConsoleColor Color;
-    public char Symbol;
-    private Vector2 _position;
-    public Vector2 Position { get => _position; }
+    private Player(Vector2 position) : base(ConsoleColor.Magenta, 'P', position) { }
 
     public static Player GetInstance()
     {
@@ -19,20 +16,13 @@ public class Player
         return _instance;
     }
 
-    private Player(Vector2 position)
-    {
-        Color = ConsoleColor.Magenta;
-        Symbol = 'P';
-        _position = position;
-    }
-
-    public void SetPosition(Vector2 position) { _position = position; }
+    public void SetPosition(Vector2 position) { Position = position; }
 
     public void Move(Vector2 direction)
     {
-        Vector2 targetPosition = _position + direction;
+        Vector2 targetPosition = Position + direction;
 
-        if (IsMovable(targetPosition)) _position = targetPosition;
+        if (IsMovable(targetPosition)) Position = targetPosition;
     }
 
     private bool IsMovable(Vector2 position)
@@ -42,12 +32,6 @@ public class Player
         return true;
     }
 
-    //todo UI 매니저와 연결해야 할 수도 있음
-    public void Print()
-    {
-        Console.SetCursorPosition(Position.X, Position.Y);
-        Console.ForegroundColor = Color;
-        Console.Write(Symbol);
-        Console.ResetColor();
-    }
+    //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
+    public override void Interact(GameObject gameObject) { }
 }
