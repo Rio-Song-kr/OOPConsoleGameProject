@@ -3,10 +3,8 @@ namespace OOPConsoleGameProject;
 public class InputManager
 {
     public event Action<Vector2> OnMove;
-
     private static InputManager _instance;
     private InputManager() { }
-    //todo event 또는 delegate로 Key 입력에 대해서 전파를 해야 하는가 추가 고민 필요함
 
     public static InputManager GetInstance()
     {

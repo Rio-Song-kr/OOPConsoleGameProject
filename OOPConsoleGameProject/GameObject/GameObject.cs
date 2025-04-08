@@ -14,7 +14,7 @@ public abstract class GameObject : IInteractable
         Position = position;
     }
 
-    //todo UI 매니저와 연결해야 할 수도 있음
+    //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
     public void Print()
     {
         Console.SetCursorPosition(Position.X, Position.Y);

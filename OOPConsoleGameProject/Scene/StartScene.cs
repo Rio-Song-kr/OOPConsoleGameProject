@@ -4,7 +4,7 @@ public class StartScene : Scene
 {
     public override void Render()
     {
-        //todo 추후 Start 화면에 맞게 수정 및 UIManager로 렌더링은 위임
+        //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
         Util.PrintConsole("Welcome to Escape Game!");
         Util.PrintConsole("Press any key to start!");
     }
