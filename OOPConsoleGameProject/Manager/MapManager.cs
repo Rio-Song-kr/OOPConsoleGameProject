@@ -8,6 +8,8 @@ public class MapManager
     private string[] _mapData;
     public string[] MapData { get => _mapData; }
     private Vector2 _mapSize;
+    public readonly static char WallSign = '#';
+    public readonly static char GroundSign = ' ';
 
     private MapManager() { }
 
@@ -32,11 +34,11 @@ public class MapManager
         {
             for (int x = 0; x < _mapSize.X; x++)
             {
-                if (_mapData[y][x] == '#')
+                if (_mapData[y][x] == WallSign)
                 {
                     _mapTileTile[y, x] = TileType.Wall;
                 }
-                else if (_mapData[y][x] == ' ')
+                else if (_mapData[y][x] == GroundSign)
                 {
                     _mapTileTile[y, x] = TileType.Ground;
                 }
@@ -44,6 +46,7 @@ public class MapManager
         }
     }
 
+    //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
     public void Print()
     {
         for (int y = 0; y < _mapSize.Y; y++)
