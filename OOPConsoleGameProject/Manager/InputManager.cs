@@ -3,6 +3,7 @@ namespace OOPConsoleGameProject;
 public class InputManager
 {
     public event Action<Vector2> OnMove;
+    public event Action<int> OnUse;
     private static InputManager _instance;
     private InputManager() { }
 
@@ -32,6 +33,11 @@ public class InputManager
                 break;
             case ConsoleKey.RightArrow:
                 OnMove(Vector2.Right);
+                break;
+            case ConsoleKey.D1:
+            case ConsoleKey.D2:
+            case ConsoleKey.D3:
+                OnUse(input - ConsoleKey.D1);
                 break;
         }
 
