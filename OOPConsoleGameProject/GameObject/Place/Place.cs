@@ -2,10 +2,11 @@ namespace OOPConsoleGameProject;
 
 public abstract class Place : GameObject
 {
-    private string _scene;
+    private SceneName _scene;
+    public SceneName SceneName { get => _scene; }
 
-    public Place(string scene, char symbol, Vector2 position) : base(ConsoleColor.Yellow, symbol, position)
+    public Place(SceneName scene, char symbol, Vector2 position) : base(ConsoleColor.Yellow, symbol, position)
     {
-        _scene = _scene;
+        _scene = scene;
     }
 }
