@@ -16,7 +16,7 @@ public class StartScene : Scene
         Util.PrintConsole("Press any key to start!");
     }
 
-    public override void Input() { _input = Console.ReadKey(true).Key; }
+    public override void Input() { GameManager.Input.GetKey(); }
 
     public override void Update() { }
 

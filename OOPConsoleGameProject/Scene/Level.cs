@@ -33,7 +33,7 @@ public class Level : Scene
         }
     }
 
-    public override void Input() { Console.ReadKey(true); }
+    public override void Input() { GameManager.Input.GetKey(); }
 
     public override void Update() { }
 

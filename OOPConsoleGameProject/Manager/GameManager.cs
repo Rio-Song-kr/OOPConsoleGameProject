@@ -16,6 +16,8 @@ public class GameManager
     private bool _isGameOver;
     private static SceneManager _scene = SceneManager.GetInstance();
     public static SceneManager Scene { get => _scene; }
+    private static InputManager _input = InputManager.GetInstance();
+    public static InputManager Input { get => _input; }
 
     //# 싱글톤
     public static void Init()

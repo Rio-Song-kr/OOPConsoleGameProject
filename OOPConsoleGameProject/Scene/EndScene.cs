@@ -13,7 +13,7 @@ public class EndScene : Scene
         Util.PrintConsole("Press any key to Exit!");
     }
 
-    public override void Input() { Console.ReadKey(true); }
+    public override void Input() { GameManager.Input.GetKey(); }
 
     public override void Update() { }
 
