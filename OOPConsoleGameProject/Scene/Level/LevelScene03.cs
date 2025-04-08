@@ -1,18 +1,15 @@
 namespace OOPConsoleGameProject;
 
-public class LevelScene02 : Level
+public class LevelScene03 : Level
 {
-    public static string Name;
-
-    public LevelScene02()
+    public LevelScene03()
     {
-        Name = "Level02";
         MapData = new string[]
         {
             "########",
-            "#   ## #",
             "#   #  #",
-            "# ### ##",
+            "## ##  #",
+            "#  ##  #",
             "#      #",
             "########"
         };

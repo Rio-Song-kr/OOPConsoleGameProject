@@ -45,7 +45,7 @@ public class GameManager
         _scene.Add(SceneName.Level03, new LevelScene03());
 
         //# 현재 Scene 설정
-        _scene.Move(StartScene.Name);
+        _scene.Move(SceneName.Start);
 
         //# InputManager의 OnMove에 Player Move 연결
         _input.OnMove -= _player.Move;

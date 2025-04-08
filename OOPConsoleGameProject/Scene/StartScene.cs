@@ -2,13 +2,6 @@ namespace OOPConsoleGameProject;
 
 public class StartScene : Scene
 {
-    public static SceneName Name;
-
-    public StartScene() { Name = SceneName.Start; }
-
-    //# Temporal
-    private ConsoleKey _input;
-
     public override void Render()
     {
         //todo 추후 Start 화면에 맞게 수정 및 UIManager로 렌더링은 위임
