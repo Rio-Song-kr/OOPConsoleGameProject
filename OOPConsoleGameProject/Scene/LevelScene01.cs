@@ -8,6 +8,8 @@ public class LevelScene01 : Level
 
     public override void OnEnter()
     {
+        GameManager.Map.SetMapData(MapData);
+
         if (IsFirstLoad)
         {
             Util.PrintCharacterSequentially("아무것도 보이지 않아", delay: 100);

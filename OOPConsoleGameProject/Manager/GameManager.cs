@@ -18,6 +18,10 @@ public class GameManager
     public static SceneManager Scene { get => _scene; }
     private static InputManager _input = InputManager.GetInstance();
     public static InputManager Input { get => _input; }
+    private static MapManager _map = MapManager.GetInstance();
+    public static MapManager Map { get => _map; }
+    private static Player _player = Player.GetInstance();
+    public static Player GamePlayer { get => _player; }
 
     //# 싱글톤
     public static void Init()
@@ -40,6 +44,10 @@ public class GameManager
 
         //# 현재 Scene 설정
         _scene.Move(StartScene.Name);
+
+        //# InputManager의 OnMove에 Player Move 연결
+        _input.OnMove -= _player.Move;
+        _input.OnMove += _player.Move;
     }
 
     public void Run()
