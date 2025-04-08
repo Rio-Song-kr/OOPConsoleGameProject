@@ -28,9 +28,13 @@ public class GameManager
 
     private void Start()
     {
+        //# Console 창 커서 안보이게 변경
+        Console.CursorVisible = false;
+
         //# Scene 추가
         _scene.Add(SceneName.Start, new StartScene());
         _scene.Add(SceneName.End, new EndScene());
+        _scene.Add(SceneName.Level01, new LevelScene01());
 
         //# 현재 Scene 설정
         _scene.Move(StartScene.Name);

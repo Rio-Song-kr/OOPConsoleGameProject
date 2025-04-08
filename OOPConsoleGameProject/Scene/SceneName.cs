@@ -4,4 +4,5 @@ public enum SceneName
 {
     Start,
     End,
+    Level01,
 }

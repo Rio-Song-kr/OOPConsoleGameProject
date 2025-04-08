@@ -37,6 +37,8 @@ public class SceneManager
             }
 
             _currentScene = _scenes[sceneName];
+
+            if (_currentScene.IsFirstLoad) _currentScene.IsFirstLoad = false;
             _currentScene.OnEnter();
         }
     }
