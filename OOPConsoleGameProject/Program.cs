@@ -4,11 +4,10 @@ class Program
 {
     static void Main(string[] args)
     {
-        GameManager gameManager = new GameManager();
+        GameManager gameManager = GameManager.Instance;
         gameManager.Run();
     }
 }
-
 
 //! 기본
 //~ 1. GameManager
@@ -41,7 +40,6 @@ class Program
 //~    7-1. 맵에서 플레이어가 이동(기존 소코반 방식)
 //~ 8. 추가사항
 //~    8-1. SceneManager 추가
-
 
 //! 응용
 //# 2. Scene 구성

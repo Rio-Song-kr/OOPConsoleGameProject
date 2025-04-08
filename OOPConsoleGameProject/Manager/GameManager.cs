@@ -3,39 +3,45 @@ namespace OOPConsoleGameProject;
 public class GameManager
 {
     private static GameManager s_Instance;
+    public static GameManager Instance { get => GetInstance(); }
 
-    public static GameManager Instance
-    {
-        get
-        {
-            Init();
-            return s_Instance;
-        }
-    }
-
-    private bool _isGameOver;
     private static SceneManager _scene = SceneManager.GetInstance();
     public static SceneManager Scene { get => _scene; }
+
     private static InputManager _input = InputManager.GetInstance();
     public static InputManager Input { get => _input; }
+
     private static MapManager _map = MapManager.GetInstance();
     public static MapManager Map { get => _map; }
+    private static Inventory _inventory = Inventory.GetInstance();
+    public static Inventory Inventory { get => _inventory; }
+
+    private static ItemManager _itemPools = ItemManager.GetInstance();
+    public static ItemManager ItemPools { get => _itemPools; }
+
     private static Player _player = Player.GetInstance();
     public static Player GamePlayer { get => _player; }
 
-    //# 싱글톤
-    public static void Init()
+    private bool _isGameOver;
+
+    private static GameManager GetInstance()
     {
         if (s_Instance == null)
         {
             s_Instance = new GameManager();
         }
+        return s_Instance;
     }
 
     private void Start()
     {
         //# Console 창 커서 안보이게 변경
         Console.CursorVisible = false;
+
+        //# Item 생성
+        _itemPools.AddItem(
+            new Key("Yellow Key", "문을 여는데 사용하는 열쇠이다.", ConsoleColor.DarkYellow, new Vector2(-1, -1))
+        );
 
         //# Scene 추가
         _scene.Add(SceneName.Start, new StartScene());
@@ -50,6 +56,10 @@ public class GameManager
         //# InputManager의 OnMove에 Player Move 연결
         _input.OnMove -= _player.Move;
         _input.OnMove += _player.Move;
+
+        //# InputManager의 OnUse에 Inventory UseAt 연결
+        _input.OnUse -= _inventory.UseAt;
+        _input.OnUse += _inventory.UseAt;
     }
 
     public void Run()
