@@ -4,7 +4,7 @@ public class Player : GameObject
 {
     static Player _instance;
 
-    private Player(Vector2 position) : base(ConsoleColor.Magenta, 'P', position) { }
+    private Player(Vector2 position) : base(ConsoleColor.Magenta, 'P', position, false) { }
 
     public static Player GetInstance()
     {

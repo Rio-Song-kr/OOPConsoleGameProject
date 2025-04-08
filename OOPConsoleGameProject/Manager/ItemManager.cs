@@ -17,4 +17,12 @@ public class ItemManager
 
     public void AddItem(Item item) { _itemPools[item.Name] = item; }
     public void RemoveItem(Item item) { _itemPools.Remove(item.Name); }
+    public Item GetItem(string name)
+    {
+        if (_itemPools.ContainsKey(name))
+        {
+            return _itemPools[name];
+        }
+        return null;
+    }
 }

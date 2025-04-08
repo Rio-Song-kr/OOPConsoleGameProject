@@ -16,7 +16,6 @@ public class Level : Scene
         GameManager.GamePlayer.Print();
     }
 
-
     public override void Input() { GameManager.Input.GetKey(); }
 
     public override void Update()
@@ -26,7 +25,8 @@ public class Level : Scene
             if (GameManager.GamePlayer.Position == gameObject.Position)
             {
                 gameObject.Interact(GameManager.GamePlayer);
-                GameObjects.Remove(gameObject);
+                if (gameObject.IsCollectable)
+                    GameObjects.Remove(gameObject);
                 break;
             }
         }

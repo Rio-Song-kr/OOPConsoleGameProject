@@ -16,6 +16,9 @@ public class LevelScene01 : Level
 
         GameObjects = new List<GameObject>();
         GameObjects.Add(new DoorPlace(SceneName.Level02, new Vector2(5, 1)));
+        Item yellowKey = GameManager.ItemPools.GetItem("Yellow Key");
+        yellowKey.SetPosition(new Vector2(1, 4));
+        GameObjects.Add(yellowKey);
     }
 
     public override void OnEnter()

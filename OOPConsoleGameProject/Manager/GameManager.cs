@@ -40,7 +40,7 @@ public class GameManager
 
         //# Item 생성
         _itemPools.AddItem(
-            new Key("Yellow Key", "문을 여는데 사용하는 열쇠이다.", ConsoleColor.DarkYellow, new Vector2(-1, -1))
+            new Key("Yellow Key", "문을 여는데 사용하는 열쇠이다.", ConsoleColor.Yellow, new Vector2(-1, -1))
         );
 
         //# Scene 추가

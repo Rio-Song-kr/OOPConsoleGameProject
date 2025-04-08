@@ -21,6 +21,9 @@ public class Inventory
     {
         if (_items.Count == _size) return;
         _items.Add(item);
+        //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
+        Console.SetCursorPosition(0, 6);
+        Util.PrintConsole($"{item.Name}이 인벤토리에 추가되었습니다.", delay: 200);
     }
 
     public void Remove(Item item) { _items.Remove(item); }
@@ -34,4 +37,6 @@ public class Inventory
             _items[index].Use();
         }
     }
+
+    public bool IsExist(Item item) => _items.Contains(item);
 }
