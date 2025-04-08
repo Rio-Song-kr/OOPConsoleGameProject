@@ -14,12 +14,13 @@ class Program
 //~ 1. GameManager
 //~    1-1. Scene 전환
 //~    1-2. Render, Input, Update, Result를 실행
+//todo 상세한 Scene의 구성(텍스트, 오브젝트 배치 등)은 기본 기능 설계 후 수정
 //# 2. Scene 구성
 //#    2-1. 상호작용 가능한 요소(아이템, 던전 입구, 문 등)
 //~    2-2. StartScene 클래스
 //~    2-3. EndScene 클래스
 //~    2-4. Scene 클래스
-//#         1) Level 클래스
+//~         1) Level 클래스
 //#         2) Dungeon 클래스
 //#    2-5. 시작화면 - Level 씬 사이 중간 씬
 //# 3. UI 구성
