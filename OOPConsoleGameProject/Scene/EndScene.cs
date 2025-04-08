@@ -13,9 +13,9 @@ public class EndScene : Scene
         Util.PrintConsole("Press any key to Exit!");
     }
 
-    public override void Input() { GameManager.Input.GetKey(); }
+    public override void Input() { GameManager.Input.PressAnyKey(); }
 
     public override void Update() { }
 
-    public override void Result() { GameManager.Scene.Move(SceneName.Start); }
+    public override void Result() { GameManager.Instance.GameOver(); }
 }

@@ -39,4 +39,6 @@ public class InputManager
 
         return input;
     }
+
+    public void PressAnyKey() { Console.ReadKey(true); }
 }
