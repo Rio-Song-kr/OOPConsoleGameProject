@@ -13,5 +13,12 @@ public class EndScene : Scene
 
     public override void Update() { }
 
-    public override void Result() { GameManager.Instance.GameOver(); }
+    public override void Result()
+    {
+        if (IsFirstLoad)
+        {
+            GameManager.Instance.GameOver();
+            IsFirstLoad = false;
+        }
+    }
 }
