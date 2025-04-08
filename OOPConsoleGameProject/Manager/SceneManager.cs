@@ -30,9 +30,9 @@ public class SceneManager
         if (_scenes.ContainsKey(sceneName))
         {
             Console.Clear();
+
             if (_currentScene != null)
             {
-                _previousScene = PreviousScene;
                 _currentScene.OnExit();
             }
 
@@ -40,6 +40,7 @@ public class SceneManager
             _currentScene.OnEnter();
 
             if (_currentScene.IsFirstLoad) _currentScene.IsFirstLoad = false;
+            _previousScene = sceneName;
         }
     }
 }
