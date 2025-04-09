@@ -35,6 +35,5 @@ public class Player : GameObject
         return true;
     }
 
-    //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
     public override bool TryInteract(GameObject gameObject) { return false; }
 }
