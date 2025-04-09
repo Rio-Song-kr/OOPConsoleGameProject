@@ -21,7 +21,7 @@ class Program
 //#         c. 플레이어가 획득할 수 있는 Navigation, Letter, Key, MusicBox 구현
 //~             ㄴ 열쇠
 //~             ㄴ Letter
-//#             ㄴ MusicBox
+//~             ㄴ MusicBox
 //#             ㄴ Navigation
 //~    2-2. StartScene 클래스
 //~    2-3. EndScene 클래스
