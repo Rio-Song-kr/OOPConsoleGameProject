@@ -1,6 +1,6 @@
 ﻿namespace OOPConsoleGameProject;
 
-public interface ILogOutput
+public interface ILogPrint
 {
     void Log(List<string> messages, List<ConsoleColor> colors);
 }
