@@ -9,9 +9,6 @@ public class DungeonPlace : Place
         if (gameObject is not Player)
             return false;
 
-        if (!GameManager.Inventory.IsExist(GameManager.ObjectPools.GetItem("Key")))
-            return false;
-
         GameManager.Scene.Move(SceneName);
         return true;
     }
