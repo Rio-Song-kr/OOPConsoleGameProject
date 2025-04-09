@@ -2,10 +2,15 @@ namespace OOPConsoleGameProject;
 
 public class Key : Item
 {
-    public Key(string name, string description, ConsoleColor color, Vector2 position) : base(color, '♀', position)
+    public Key(string name, string[] descriptions, ConsoleColor color, Vector2 position) : base(color, '♀', position)
     {
         Name = name;
-        Description = description;
+        Description = new List<string>();
+
+        foreach (string description in descriptions)
+        {
+            Description.Add(description);
+        }
     }
 
     public override void Use()
