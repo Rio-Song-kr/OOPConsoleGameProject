@@ -2,7 +2,12 @@
 
 public class Letter : Item
 {
-    public Letter(string name, string[] descriptions, ConsoleColor color, Vector2 position) : base(color, '▤', position)
+    public Letter(
+        string name,
+        string[] descriptions,
+        ConsoleColor color,
+        Vector2 position)
+        : base(color, '▤', position)
     {
         Name = name;
         Description = new List<string>();

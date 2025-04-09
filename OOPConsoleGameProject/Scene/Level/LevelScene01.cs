@@ -19,7 +19,7 @@ public class LevelScene01 : Level
         GameObjects.Add(new DoorPlace(SceneName.Level02, new Vector2(5, 1)));
 
         //# 열쇠 추가
-        Item yellowKey = GameManager.ItemPools.GetItem("Yellow Key");
+        Item yellowKey = GameManager.ItemPools.GetItem("Key");
         yellowKey.SetPosition(new Vector2(1, 4));
         GameObjects.Add(yellowKey);
     }

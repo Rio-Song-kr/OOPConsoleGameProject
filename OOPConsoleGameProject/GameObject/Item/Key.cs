@@ -2,7 +2,12 @@ namespace OOPConsoleGameProject;
 
 public class Key : Item
 {
-    public Key(string name, string[] descriptions, ConsoleColor color, Vector2 position) : base(color, '♀', position)
+    public Key(
+        string name,
+        string[] descriptions,
+        ConsoleColor color,
+        Vector2 position)
+        : base(color, '♀', position)
     {
         Name = name;
         Description = new List<string>();
