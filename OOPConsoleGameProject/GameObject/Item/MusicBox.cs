@@ -2,6 +2,8 @@
 
 public class MusicBox : Item
 {
+    private Note[] playNotes;
+
     public MusicBox(
         string name,
         string[] descriptions,
@@ -16,7 +18,21 @@ public class MusicBox : Item
         {
             Description.Add(description);
         }
+
+        playNotes = new Note[]
+        {
+            new Note(Tone.C, Duration.HALF),
+            new Note(Tone.E, Duration.HALF),
+            new Note(Tone.G, Duration.HALF),
+            new Note(Tone.D, Duration.HALF)
+        };
     }
 
-    public override void Use() { }
+    public override void Use()
+    {
+        foreach (var note in playNotes)
+        {
+            Console.Beep((int)note.ToneValue, (int)note.DurationValue);
+        }
+    }
 }

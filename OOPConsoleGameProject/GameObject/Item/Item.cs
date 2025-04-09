@@ -24,5 +24,6 @@ public abstract class Item : GameObject, IUsable, ISelectable
     {
         GameManager.Log.Log($"{Name} 정보창을 열었습니다", ConsoleColor.Cyan);
         GameManager.Inventory.PrintInfo(this);
+        if (this is MusicBox) this.Use();
     }
 }
