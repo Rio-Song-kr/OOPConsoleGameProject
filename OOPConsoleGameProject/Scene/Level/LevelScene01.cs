@@ -19,12 +19,9 @@ public class LevelScene01 : Level
         GameObjects.Add(new DoorPlace(SceneName.Level02, new Vector2(5, 1)));
 
         //# 열쇠 추가
-        Item yellowKey = GameManager.ObjectPools.GetItem("Key");
-        yellowKey.SetPosition(new Vector2(1, 4));
-        GameObjects.Add(yellowKey);
-
-        //# 던전 추가
-        GameObjects.Add(new DungeonPlace(SceneName.Dungeon01, new Vector2(6, 4)));
+        Item key = GameManager.ObjectPools.GetItem("Key");
+        key.SetPosition(new Vector2(1, 4));
+        GameObjects.Add(key);
     }
 
     public override void OnEnter()

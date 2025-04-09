@@ -31,7 +31,14 @@ public class LevelScene03 : Level
     public override void OnEnter()
     {
         GameManager.Map.SetMapData(MapData);
+        // if (GameManager.Scene.PreviousScene != SceneName.Dungeon02)
+        // {
+        GameManager.Inventory.RemoveAll();
         GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
-        // GameManager.Inventory.RemoveAll();
+        // }
+        // else
+        // {
+        //     GameManager.GamePlayer.SetPosition(new Vector2(5, 4));
+        // }
     }
 }
