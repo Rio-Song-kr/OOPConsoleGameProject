@@ -18,4 +18,6 @@ public class Letter : Item
         }
     }
     public override void Use() { }
+
+    public override void Select() { }
 }

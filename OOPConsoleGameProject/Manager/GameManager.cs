@@ -77,6 +77,9 @@ public class GameManager
         _input.OnMove += _player.Move;
 
         //# InputManager의 OnUse에 Inventory UseAt 연결
+        _input.OnSelect -= _inventory.SelectAt;
+        _input.OnSelect += _inventory.SelectAt;
+
         _input.OnUse -= _inventory.UseAt;
         _input.OnUse += _inventory.UseAt;
     }

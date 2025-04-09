@@ -1,6 +1,6 @@
 namespace OOPConsoleGameProject;
 
-public abstract class Item : GameObject, IUsable
+public abstract class Item : GameObject, IUsable, ISelectable
 {
     private string _name;
     public string Name { get => _name; protected set => _name = value; }
@@ -21,4 +21,5 @@ public abstract class Item : GameObject, IUsable
     }
 
     public abstract void Use();
+    public abstract void Select();
 }

@@ -7,6 +7,7 @@ public class Inventory
     private readonly int _size = 3;
 
     private Inventory() { _items = new List<Item>(); }
+    private int currentItemIndex = -1;
 
     public static Inventory GetInstance()
     {
@@ -29,14 +30,32 @@ public class Inventory
 
     public void Remove(Item item) { _items.Remove(item); }
 
-    public void UseAt(int index)
+    public void SelectAt(int index)
     {
-        if (index < 0 || index >= _size || index >= _items.Count) return;
-
-        if (_items[index] is IUsable)
+        if (index < 0 || index >= _size || index >= _items.Count)
         {
-            _items[index].Use();
+            currentItemIndex = -1;
+            return;
         }
+
+        currentItemIndex = index;
+
+        if (_items[currentItemIndex] is ISelectable selectableItem)
+        {
+            //todo Select 시 아이템 정보가 출력되게 변경
+            selectableItem.Select();
+        }
+    }
+
+    public void UseAt()
+    {
+        if (currentItemIndex == -1) return;
+
+        if (_items[currentItemIndex] is IUsable usableItem)
+        {
+            usableItem.Use();
+        }
+        //# 
     }
 
     public bool IsExist(Item item) => _items.Contains(item);

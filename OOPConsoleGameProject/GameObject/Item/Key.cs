@@ -22,4 +22,6 @@ public class Key : Item
     {
         //todo Item 사용 관련 처리가 필요함
     }
+
+    public override void Select() { }
 }
