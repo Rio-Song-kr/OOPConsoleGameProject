@@ -48,43 +48,7 @@ public sealed class GameManager
         //# Console 창 커서 안보이게 변경
         Console.CursorVisible = false;
 
-        //! Object Pooling
-        //# Item 생성
-        _objectPools.AddItem(
-            new Key(
-                "Key",
-                new string[] { "문을 여는데 사용하는 열쇠이다." },
-                new Vector2(-1, -1))
-        );
-        _objectPools.AddItem(
-            new Letter(
-                "Letter",
-                new string[] { "상자를 열 수 있는 힌트가 적힌 편지이다.", "4 + 5 = ?", "9 - 4 = ?", "2 X 4 = ?", "8 ÷ 4 = ?" },
-                new Vector2(-1, -1))
-        );
-        _objectPools.AddItem(
-            new MusicBox(
-                "Music Box",
-                new string[] { "음악 재생이 가능한 상자이자.", "들려오는 소리와 연관이 있지 않을까?", "♪ ♪ ♪ ♪" },
-                new Vector2(-1, -1))
-        );
-        _objectPools.AddItem(
-            new Navigation(
-                "Navigation",
-                new string[] { "문이 있는 곳까지 안내 해주는 네비게이션." },
-                new Vector2(-1, -1))
-        );
-
-        //# Field Object 생성
-        _objectPools.AddFieldObject(new Chest(new Vector2(-1, -1)));
-        _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
-        _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
-        _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
-        _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
-        _objectPools.AddFieldObject(new Goal(new Vector2(-1, -1)));
-        _objectPools.AddFieldObject(new Goal(new Vector2(-1, -1)));
-        _objectPools.AddFieldObject(new Goal(new Vector2(-1, -1)));
-        _objectPools.AddFieldObject(new Goal(new Vector2(-1, -1)));
+        ObjectPooling();
 
         //# Scene 추가
         _scene.Add(SceneName.Start, new StartScene());
@@ -107,6 +71,46 @@ public sealed class GameManager
 
         _input.OnUse -= _inventory.UseAt;
         _input.OnUse += _inventory.UseAt;
+    }
+
+    private void ObjectPooling()
+    {
+        //# Item 생성
+        _objectPools.AddItem(
+            new Key(
+                "Key",
+                new string[] { "문을 여는데 사용하는 열쇠이다." },
+                new Vector2(-1, -1))
+        );
+        _objectPools.AddItem(
+            new Letter(
+                "Letter",
+                new string[] { "상자를 열 수 있는 힌트가 적힌 편지이다.", "4 + 5 = ?", "9 - 4 = ?", "2 X 4 = ?", "8 ÷ 4 = ?" },
+                new Vector2(-1, -1))
+        );
+        _objectPools.AddItem(
+            new MusicBox(
+                "Music Box",
+                new string[] { "음악 재생이 가능한 상자이다.", "들려오는 소리와 연관이 있지 않을까?", "♪ ♪ ♪ ♪" },
+                new Vector2(-1, -1))
+        );
+        _objectPools.AddItem(
+            new Navigation(
+                "Navigation",
+                new string[] { "문이 있는 곳까지 안내 해주는 네비게이션이다." },
+                new Vector2(-1, -1))
+        );
+
+        //# Field Object 생성
+        _objectPools.AddFieldObject(new Chest(new Vector2(-1, -1)));
+        _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
+        _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
+        _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
+        _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
+        _objectPools.AddFieldObject(new Goal(new Vector2(-1, -1)));
+        _objectPools.AddFieldObject(new Goal(new Vector2(-1, -1)));
+        _objectPools.AddFieldObject(new Goal(new Vector2(-1, -1)));
+        _objectPools.AddFieldObject(new Goal(new Vector2(-1, -1)));
     }
 
     public void Run()
