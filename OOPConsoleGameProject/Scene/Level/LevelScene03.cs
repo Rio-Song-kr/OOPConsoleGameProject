@@ -32,5 +32,6 @@ public class LevelScene03 : Level
     {
         GameManager.Map.SetMapData(MapData);
         GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
+        // GameManager.Inventory.RemoveAll();
     }
 }
