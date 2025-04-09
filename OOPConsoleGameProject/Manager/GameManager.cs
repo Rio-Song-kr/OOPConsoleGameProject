@@ -1,6 +1,6 @@
 namespace OOPConsoleGameProject;
 
-public class GameManager
+public sealed class GameManager
 {
     private static GameManager s_Instance;
     public static GameManager Instance { get => GetInstance(); }
