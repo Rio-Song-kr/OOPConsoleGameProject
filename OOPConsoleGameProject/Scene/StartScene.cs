@@ -5,8 +5,11 @@ public class StartScene : Scene
     public override void Render()
     {
         //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
-        Util.PrintConsole("Welcome to Escape Game!");
-        Util.PrintConsole("Press any key to start!");
+        GameManager.UI.PrintTextAtCenter(new string[]
+        {
+            "미로 탈출 게임!",
+            "게임을 시작하려면, 아무 키나 누르세요"
+        }, false);
     }
 
     public override void Input() { GameManager.Input.PressAnyKey(); }

@@ -17,7 +17,7 @@ public class Rock : FieldObject
         //todo FieldObject는 Player 뿐만 아니라 Rock <-> Goal상호작용을 함
         if (gameObject is not Player player)
             return false;
-        
+
         //todo 돌과 플레이어가 부딪힐 경우 상호작용 추가
         if (Move(player.MovedDirection))
             return true;
@@ -37,7 +37,7 @@ public class Rock : FieldObject
 
     private bool IsMovable(Vector2 position)
     {
-        if (GameManager.Map.MapTile[position.Y, position.X] == TileType.Wall) return false;
+        if (GameManager.Map.MapTile[position.Y - Offset.Y, position.X - Offset.Y] == TileType.Wall) return false;
 
         return true;
     }

@@ -18,6 +18,8 @@ public sealed class GameManager
 
     private static ObjectManager _objectPools = ObjectManager.GetInstance();
     public static ObjectManager ObjectPools { get => _objectPools; }
+    private static UIManager _uiManager = UIManager.GetInstance();
+    public static UIManager UI { get => _uiManager; }
 
     private static Player _player = Player.GetInstance();
     public static Player GamePlayer { get => _player; }
@@ -101,14 +103,20 @@ public sealed class GameManager
 
         _input.OnUse -= _inventory.UseAt;
         _input.OnUse += _inventory.UseAt;
+
+        _inventory.OnAdd -= _uiManager.PrintItem;
+        _inventory.OnAdd += _uiManager.PrintItem;
+
+        _inventory.OnRemove -= _uiManager.PrintEmptyItem;
+        _inventory.OnRemove += _uiManager.PrintEmptyItem;
     }
 
     public void Run()
     {
         Start();
+        UI.RenderUI();
         do
         {
-            Console.SetCursorPosition(0, 0);
             _scene.CurrentScene.Render();
             _scene.CurrentScene.Input();
             _scene.CurrentScene.Update();

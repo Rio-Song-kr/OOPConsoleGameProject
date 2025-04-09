@@ -30,7 +30,7 @@ public class Player : GameObject
 
     private bool IsMovable(Vector2 position)
     {
-        if (GameManager.Map.MapTile[position.Y, position.X] == TileType.Wall) return false;
+        if (GameManager.Map.MapTile[position.Y - Offset.Y, position.X - Offset.X] == TileType.Wall) return false;
 
         return true;
     }

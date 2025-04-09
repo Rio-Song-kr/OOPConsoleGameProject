@@ -42,5 +42,5 @@ public class DungeonScene01 : Dungeon
         GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
     }
 
-    public override void OnExit() { Util.PrintConsole("성공!", delay: 1000); }
+    public override void OnExit() {  }
 }

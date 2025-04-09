@@ -32,6 +32,7 @@ public class LevelScene02 : Level
         if (GameManager.Scene.PreviousScene != SceneName.Dungeon01)
         {
             GameManager.Inventory.RemoveAll();
+            GameManager.UI.ClearMapArea();
             GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
         }
         else

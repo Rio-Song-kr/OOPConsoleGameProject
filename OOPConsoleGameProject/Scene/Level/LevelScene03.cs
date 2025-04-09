@@ -34,6 +34,7 @@ public class LevelScene03 : Level
         // if (GameManager.Scene.PreviousScene != SceneName.Dungeon02)
         // {
         GameManager.Inventory.RemoveAll();
+        GameManager.UI.ClearMapArea();
         GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
         // }
         // else

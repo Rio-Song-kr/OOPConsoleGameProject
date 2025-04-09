@@ -7,7 +7,7 @@ public static class Util
     {
         Console.BackgroundColor = backgroundColor;
         Console.ForegroundColor = textColor;
-        Console.WriteLine(message);
+        Console.Write(message);
         Thread.Sleep(delay);
         Console.ResetColor();
     }
@@ -24,7 +24,6 @@ public static class Util
         }
 
         Console.ResetColor();
-        Console.WriteLine();
     }
 
     public static void Sleep(int delay) { Thread.Sleep(delay); }

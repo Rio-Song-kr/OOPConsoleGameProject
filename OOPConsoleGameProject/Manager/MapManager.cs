@@ -23,7 +23,6 @@ public class MapManager
         return _instance;
     }
 
-
     public void SetMapData(string[] mapData)
     {
         _mapSize = new Vector2(mapData[0].Length, mapData.GetLength(0));
@@ -47,16 +46,5 @@ public class MapManager
     }
 
     //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
-    public void Print()
-    {
-        for (int y = 0; y < _mapSize.Y; y++)
-        {
-            for (int x = 0; x < _mapSize.X; x++)
-            {
-                Console.Write(_mapData[y][x]);
-            }
-
-            Console.WriteLine();
-        }
-    }
+    public void Print() { GameManager.UI.PrintMap(_mapData, _mapSize); }
 }

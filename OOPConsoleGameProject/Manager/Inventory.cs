@@ -5,6 +5,8 @@ public class Inventory
     private static Inventory _instance;
     private List<Item> _items;
     private readonly int _size = 3;
+    public event Action<Item, int> OnAdd;
+    public event Action<int> OnRemove;
 
     private Inventory() { _items = new List<Item>(); }
     private int currentItemIndex = -1;
@@ -22,15 +24,24 @@ public class Inventory
     {
         if (_items.Count == _size) return;
         _items.Add(item);
+        int index = _items.IndexOf(item);
+        OnAdd(item, index);
         //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
-        Console.ResetColor();
-        Console.SetCursorPosition(0, 6);
-        Util.PrintConsole($"{item.Name}이 인벤토리에 추가되었습니다.                      ");
+        // Console.ResetColor();
+        // Console.SetCursorPosition(0, 6);
+        // Util.PrintConsole($"{item.Name}이 인벤토리에 추가되었습니다.                      ");
     }
 
     public void Remove(Item item) { _items.Remove(item); }
 
-    public void RemoveAll() { _items = new List<Item>(); }
+    public void RemoveAll()
+    {
+        for (int i = 0; i < _items.Count; i++)
+        {
+            OnRemove(i);
+        }
+        _items = new List<Item>();
+    }
 
     public void SelectAt(int index)
     {

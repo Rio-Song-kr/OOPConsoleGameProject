@@ -29,8 +29,6 @@ public class SceneManager
     {
         if (_scenes.ContainsKey(sceneName))
         {
-            Console.Clear();
-
             if (_currentScene != null)
             {
                 _currentScene.OnExit();
