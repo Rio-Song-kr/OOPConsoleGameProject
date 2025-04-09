@@ -4,10 +4,12 @@ public class StartScene : Scene
 {
     public override void Render()
     {
-        //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
         GameManager.UI.PrintTextAtCenter(new string[]
         {
             "미로 탈출 게임!",
+            "조작키 : ↑, ←, ↓, →",
+            "아이템 정보 보기 : 1, 2, 3",
+            "아이템 사용 : U",
             "게임을 시작하려면, 아무 키나 누르세요"
         }, false);
     }
