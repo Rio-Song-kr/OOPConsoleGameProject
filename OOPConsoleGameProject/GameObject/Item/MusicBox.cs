@@ -1,6 +1,6 @@
 ﻿namespace OOPConsoleGameProject;
 
-public class MusicBox : Item, IUsable
+public class MusicBox : Item
 {
     public MusicBox(
         string name,
@@ -19,6 +19,5 @@ public class MusicBox : Item, IUsable
     }
 
     public override void Use() { }
-
     public override void Select() { }
 }
