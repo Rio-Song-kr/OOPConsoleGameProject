@@ -19,9 +19,19 @@ public class LevelScene01 : Level
         GameObjects.Add(new DoorPlace(SceneName.Level02, new Vector2(5, 1)));
 
         //# 열쇠 추가
-        Item yellowKey = GameManager.ItemPools.GetItem("Key");
+        Item yellowKey = GameManager.ObjectPools.GetItem("Key");
         yellowKey.SetPosition(new Vector2(1, 4));
         GameObjects.Add(yellowKey);
+
+        //# Rock 추가 - 테스트용
+        FieldObject rock0 = GameManager.ObjectPools.GetFieldObject("Rock", 0);
+        rock0.SetPosition(new Vector2(4, 4));
+        GameObjects.Add(rock0);
+
+        //# Goal 추가 - 테스트용
+        FieldObject goal0 = GameManager.ObjectPools.GetFieldObject("Goal", 0);
+        goal0.SetPosition(new Vector2(6, 4));
+        GameObjects.Add(goal0);
     }
 
     public override void OnEnter()

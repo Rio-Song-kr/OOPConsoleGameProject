@@ -18,12 +18,12 @@ public class LevelScene03 : Level
         GameObjects.Add(new DoorPlace(SceneName.End, new Vector2(5, 1)));
 
         //# 뮤직박스 추가
-        Item musicBox = GameManager.ItemPools.GetItem("Music Box");
+        Item musicBox = GameManager.ObjectPools.GetItem("Music Box");
         musicBox.SetPosition(new Vector2(1, 4));
         GameObjects.Add(musicBox);
 
         //# 내비게이션 추가
-        Item navigation = GameManager.ItemPools.GetItem("Navigation");
+        Item navigation = GameManager.ObjectPools.GetItem("Navigation");
         navigation.SetPosition(new Vector2(3, 4));
         GameObjects.Add(navigation);
     }
