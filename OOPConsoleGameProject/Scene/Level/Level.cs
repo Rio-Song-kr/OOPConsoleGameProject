@@ -2,7 +2,7 @@ namespace OOPConsoleGameProject;
 
 public class Level : Scene
 {
-    protected string[] MapData;
+    protected TileType[,] MapTile;
     protected List<GameObject> GameObjects;
 
     public override void Render()
@@ -38,6 +38,10 @@ public class Level : Scene
                     }
                     GameObjects.Remove(gameObject);
                     break;
+                }
+                else if (gameObject is Chest chest)
+                {
+                    //todo Chest의 문제를 해결했을 때에 대한 처리 추가
                 }
             }
         }

@@ -56,6 +56,7 @@ public sealed class GameManager
         _scene.Add(SceneName.Level01, new LevelScene01());
         _scene.Add(SceneName.Level02, new LevelScene02());
         _scene.Add(SceneName.Level03, new LevelScene03());
+        _scene.Add(SceneName.Level04, new LevelScene04());
         _scene.Add(SceneName.Dungeon01, new DungeonScene01());
 
         //# 현재 Scene 설정
@@ -102,7 +103,8 @@ public sealed class GameManager
         );
 
         //# Field Object 생성
-        _objectPools.AddFieldObject(new Chest(new Vector2(-1, -1)));
+        _objectPools.AddFieldObject(new Chest("Letter Chest", new Vector2(-1, -1)));
+        _objectPools.AddFieldObject(new Chest("Music Chest", new Vector2(-1, -1)));
         _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
         _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
         _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
@@ -117,6 +119,7 @@ public sealed class GameManager
     {
         Start();
         UI.RenderUI();
+
         do
         {
             _scene.CurrentScene.Render();

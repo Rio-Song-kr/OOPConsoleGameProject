@@ -4,15 +4,7 @@ public class DungeonScene01 : Dungeon
 {
     public DungeonScene01()
     {
-        MapData = new string[]
-        {
-            "########",
-            "#      #",
-            "#      #",
-            "#      #",
-            "#      #",
-            "########"
-        };
+        MapTile = Maze.GenerateByBacktracking(1, 1, new Vector2(33, 33));
 
         //# Rock 추가 - 테스트용
         FieldObject rock0 = GameManager.ObjectPools.GetFieldObject("Rock", 0);
@@ -38,9 +30,9 @@ public class DungeonScene01 : Dungeon
 
     public override void OnEnter()
     {
-        GameManager.Map.SetMapData(MapData);
+        GameManager.Map.SetMapData(MapTile);
         GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
     }
 
-    public override void OnExit() {  }
+    public override void OnExit() { }
 }

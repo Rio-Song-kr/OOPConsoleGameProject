@@ -2,7 +2,7 @@
 
 public class Dungeon : Scene
 {
-    protected string[] MapData;
+    protected TileType[,] MapTile;
     protected List<GameObject> GameObjects;
     protected List<Goal> Goals;
 

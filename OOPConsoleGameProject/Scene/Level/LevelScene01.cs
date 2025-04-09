@@ -4,15 +4,7 @@ public class LevelScene01 : Level
 {
     public LevelScene01()
     {
-        MapData = new string[]
-        {
-            "########",
-            "#   #  #",
-            "#   #  #",
-            "### #  #",
-            "#      #",
-            "########"
-        };
+        MapTile = Maze.GenerateByBacktracking(1, 1, new Vector2(63, 33));
 
         //# 문 추가
         GameObjects = new List<GameObject>();
@@ -26,7 +18,7 @@ public class LevelScene01 : Level
 
     public override void OnEnter()
     {
-        GameManager.Map.SetMapData(MapData);
+        GameManager.Map.SetMapData(MapTile);
         GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
 
         if (IsFirstLoad)
