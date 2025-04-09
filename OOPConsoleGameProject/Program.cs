@@ -19,6 +19,10 @@ class Program
 //~         a. 우선적으로 맵 이동을 위한 Object를 먼저 생성
 //#         b. 던전에서 사용할 Rock, Goal 구현
 //#         c. 플레이어가 획득할 수 있는 Navigation, Letter, Key, MusicBox 구현
+//~             ㄴ 열쇠
+//~             ㄴ Letter
+//#             ㄴ MusicBox
+//#             ㄴ Navigation
 //~    2-2. StartScene 클래스
 //~    2-3. EndScene 클래스
 //~    2-4. Scene 클래스
@@ -34,7 +38,7 @@ class Program
 //~    5-3. Player 등은 InputManager의 event를 구독
 //~    5-4. PressAnyKey 추가
 //# 6. Inventory
-//#    6-1. 아이템 추가(최대 3개)
+//~    6-1. 아이템 추가(최대 3개)
 //#    6-2. UI 출력(UIManager를 통해 출력)
 //# 7. Test를 위한 Render와 Update
 //~    7-1. 맵에서 플레이어가 이동(기존 소코반 방식)
@@ -76,7 +80,7 @@ class Program
 //~    7-1. 던전
 //#         1) 열쇠를 얻기 위해 던전 맵으로 이동
 //~    7-2. 문
-//#         1) 열쇠를 가지고 있는 상태에서만 겹쳐서 탈출이 가능함
+//~         1) 열쇠를 가지고 있는 상태에서만 겹쳐서 탈출이 가능함
 //# 8. Render
 //#    8-1. 플레이어는 중심에 고정되고, 이동 시 맵이 이동됨
 
