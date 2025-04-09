@@ -96,7 +96,7 @@ public class GameManager
         Start();
         do
         {
-            Console.Clear();
+            Console.SetCursorPosition(0, 0);
             _scene.CurrentScene.Render();
             _scene.CurrentScene.Input();
             _scene.CurrentScene.Update();

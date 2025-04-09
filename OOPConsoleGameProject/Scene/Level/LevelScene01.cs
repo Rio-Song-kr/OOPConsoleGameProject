@@ -37,6 +37,7 @@ public class LevelScene01 : Level
             Util.PrintCharacterSequentially("조용한 공기 속, 희미한 빛 한점만...", delay: 100);
             Util.PrintCharacterSequentially("나를 둘러싼 벽들은 왜 이렇게 낯선 걸까?", delay: 100);
             Util.Sleep(1000);
+            Console.Clear();
         }
     }
 }

@@ -25,7 +25,14 @@ public class Inventory
         //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
         Console.ResetColor();
         Console.SetCursorPosition(0, 6);
-        Util.PrintConsole($"{item.Name}이 인벤토리에 추가되었습니다.", delay: 200);
+        Util.PrintConsole($"{item.Name}이 인벤토리에 추가되었습니다.                      ");
+    }
+
+    public void IsFull()
+    {
+        Console.SetCursorPosition(0, 6);
+        //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
+        Util.PrintConsole($"인벤토리가 꽉 찼습니다.                   ", ConsoleColor.Red);
     }
 
     public void Remove(Item item) { _items.Remove(item); }
@@ -55,7 +62,6 @@ public class Inventory
         {
             usableItem.Use();
         }
-        //# 
     }
 
     public bool IsExist(Item item) => _items.Contains(item);

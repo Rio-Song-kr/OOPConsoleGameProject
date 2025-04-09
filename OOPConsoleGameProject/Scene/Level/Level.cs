@@ -25,8 +25,16 @@ public class Level : Scene
             if (GameManager.GamePlayer.Position == gameObject.Position)
             {
                 gameObject.Interact(GameManager.GamePlayer);
-                if (gameObject.IsCollectable)
-                    GameObjects.Remove(gameObject);
+
+                if (!gameObject.IsCollectable)
+                    continue;
+                Item item = gameObject as Item;
+                if (item == null || !GameManager.Inventory.IsExist(item))
+                {
+                    GameManager.Inventory.IsFull();
+                    continue;
+                }
+                GameObjects.Remove(gameObject);
                 break;
             }
         }
