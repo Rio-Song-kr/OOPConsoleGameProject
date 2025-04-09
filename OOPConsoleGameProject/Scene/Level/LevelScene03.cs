@@ -16,6 +16,11 @@ public class LevelScene03 : Level
 
         GameObjects = new List<GameObject>();
         GameObjects.Add(new DoorPlace(SceneName.End, new Vector2(5, 1)));
+
+        //# 뮤직박스 추가
+        Item musicBox = GameManager.ItemPools.GetItem("Music Box");
+        musicBox.SetPosition(new Vector2(1, 4));
+        GameObjects.Add(musicBox);
     }
 
     public override void OnEnter()
