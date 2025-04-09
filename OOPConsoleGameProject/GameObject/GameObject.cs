@@ -28,5 +28,5 @@ public abstract class GameObject : IInteractable
 
     public void SetPosition(Vector2 position) { _position = position; }
 
-    public abstract void Interact(GameObject gameObject);
+    public abstract bool TryInteract(GameObject gameObject);
 }

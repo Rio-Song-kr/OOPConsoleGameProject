@@ -8,11 +8,23 @@ public class Goal : FieldObject
 
     public Goal(ConsoleColor color, Vector2 position) : base(color, '○', position)
     {
-        //todo Goal의 경우, 돌이 올라오면 심볼(◎)과 색상이 변해야함
-        //todo 반대로 돌이 심볼을 벗어나면 다시 이전 심볼(○)과 색상으로 복귀
         Name = _name;
         Index = _goalIndex++;
     }
 
-    public override void Interact(GameObject gameObject) { }
+    public override bool TryInteract(GameObject gameObject)
+    {
+        if (gameObject is Player player)
+            return false;
+
+        if (gameObject is Rock)
+        {
+            //todo Goal의 경우, 돌이 올라오면 심볼(◎)과 색상이 변해야함
+            //todo 반대로 돌이 심볼을 벗어나면 다시 이전 심볼(○)과 색상으로 복귀
+            Symbol = '◎';
+            Color = ConsoleColor.Cyan;
+            return true;
+        }
+        return false;
+    }
 }

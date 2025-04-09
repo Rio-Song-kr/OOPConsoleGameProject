@@ -12,12 +12,13 @@ public abstract class Item : GameObject, IUsable, ISelectable
     //todo 추후 UIManager 생성 후 수정
     public string GetInfo() => $"{_name},{_description}";
 
-    public override void Interact(GameObject gameObject)
+    public override bool TryInteract(GameObject gameObject)
     {
-        if (gameObject is Player)
-        {
-            GameManager.Inventory.Add(this);
-        }
+        if (gameObject is not Player)
+            return false;
+
+        GameManager.Inventory.Add(this);
+        return true;
     }
 
     public abstract void Use();

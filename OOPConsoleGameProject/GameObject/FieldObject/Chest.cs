@@ -14,5 +14,13 @@ public class Chest : FieldObject
         Index = _chestIndex++;
     }
 
-    public override void Interact(GameObject gameObject) { }
+    public override bool TryInteract(GameObject gameObject)
+    {
+        //todo FieldObject는 Player 뿐만 아니라 Rock <-> Goal상호작용을 함
+        if (gameObject is not Player player)
+            return false;
+
+        //todo 돌과 플레이어가 부딪힐 경우 상호작용 추가
+        return true;
+    }
 }
