@@ -41,7 +41,6 @@ public class LevelScene01 : Level
                 "나를 둘러싼 벽들은 왜 이렇게 낯선걸까?"
             }, true, 100);
             Util.Sleep(1000);
-            GameManager.Inventory.RemoveAll();
             GameManager.UI.ClearMapArea();
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace OOPConsoleGameProject;
 
-public class UIManager
+public class UIManager : ILogOutput
 {
     private static UIManager _instance;
     private RectanglePosition _mapPosition;
@@ -8,7 +8,8 @@ public class UIManager
     private RectanglePosition _logPosition;
     private Vector2 _mapStartOffset;
     public Vector2 MapStartOffset { get => _mapStartOffset; }
-    private static Vector2 _itemPosition;
+    private Vector2 _itemOffset;
+    private Vector2 _logOffset;
 
     private UIManager()
     {
@@ -27,13 +28,18 @@ public class UIManager
             StartPosition = new Vector2(0, 19),
             EndPosition = new Vector2(73, 25)
         };
-        _itemPosition = new Vector2(
+        _itemOffset = new Vector2(
             (_inventoryPosition.StartPosition.X + _inventoryPosition.EndPosition.X) / 2 - 1,
             13
         );
         _mapStartOffset = new Vector2(
             _mapPosition.StartPosition.X + 1,
-            _mapPosition.StartPosition.Y + 1);
+            _mapPosition.StartPosition.Y + 1
+        );
+        _logOffset = new Vector2(
+            _logPosition.StartPosition.X + 1,
+            _logPosition.StartPosition.Y + 2
+        );
 
         Console.SetBufferSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
     }
@@ -112,31 +118,31 @@ public class UIManager
     //# 인벤토리에 아이템이 추가되면 출력
     public void PrintItem(Item item, int index)
     {
-        Console.SetCursorPosition(_itemPosition.X, _itemPosition.Y + index);
+        Console.SetCursorPosition(_itemOffset.X, _itemOffset.Y + index);
         Console.Write(item.Symbol);
     }
 
     //# 인벤토리에서 아이템이 제거되면(또는 특정 아이템이 사용되면) 출력
     public void PrintEmptyItem(int index)
     {
-        Console.SetCursorPosition(_itemPosition.X, _itemPosition.Y + index);
+        Console.SetCursorPosition(_itemOffset.X, _itemOffset.Y + index);
         Console.Write('_');
     }
 
     public void PrintTextAtCenter(string[] texts, bool isSequentially, int delay = 0)
     {
         ClearMapArea();
-        int length = texts.Length;
-        int intervalY = (_mapPosition.EndPosition.Y - _mapPosition.StartPosition.Y - length) / (length + 1) + 1;
+        int textCounts = texts.Length;
+        int intervalY = (_mapPosition.EndPosition.Y - _mapPosition.StartPosition.Y - textCounts) / (textCounts + 1) + 1;
         int yPosition = _mapPosition.StartPosition.Y + intervalY;
 
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < textCounts; i++)
         {
-            //# 한글의 경우 아래 계산 만으로 중앙에 오지 않아, 문자열 길이 / 3을 빼줘서 대략적으로 중앙 정렬
-            int intervalX = (_mapPosition.EndPosition.X - _mapPosition.StartPosition.X - texts[i].Length) / 2 -
-                            texts[i].Length / 3;
+            int length = Util.GetMessageWidth(texts[i]);
+            int intervalX = (_mapPosition.EndPosition.X - _mapPosition.StartPosition.X - length) / 2;
 
             Console.SetCursorPosition(intervalX, yPosition);
+
             if (isSequentially) Util.PrintCharacterSequentially(texts[i], delay: delay);
             else Util.PrintConsole((texts[i]));
 
@@ -173,6 +179,17 @@ public class UIManager
             {
                 Console.Write(' ');
             }
+        }
+    }
+
+    public void Log(List<string> messages, List<ConsoleColor> color)
+    {
+        for (int i = 0; i < messages.Count; i++)
+        {
+            int length = _logPosition.EndPosition.X - 1 - _logOffset.X - Util.GetMessageWidth(messages[i]);
+            Console.SetCursorPosition(_logOffset.X, _logOffset.Y + i);
+            string message = $"{messages[i]}{new string(' ', Math.Max(0, length))}";
+            Util.PrintConsole(message, textColor: color[i]);
         }
     }
 }

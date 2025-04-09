@@ -26,10 +26,7 @@ public class Inventory
         _items.Add(item);
         int index = _items.IndexOf(item);
         OnAdd(item, index);
-        //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
-        // Console.ResetColor();
-        // Console.SetCursorPosition(0, 6);
-        // Util.PrintConsole($"{item.Name}이 인벤토리에 추가되었습니다.                      ");
+        GameManager.Log.Log($"{item.Name}이/가 인벤토리에 추가되었습니다.", ConsoleColor.DarkGreen);
     }
 
     public void Remove(Item item) { _items.Remove(item); }
@@ -41,6 +38,7 @@ public class Inventory
             OnRemove(i);
         }
         _items = new List<Item>();
+        GameManager.Log.Log("인벤토리가 초기화되었습니다.", ConsoleColor.DarkMagenta);
     }
 
     public void SelectAt(int index)
@@ -73,8 +71,7 @@ public class Inventory
     public void IsFull()
     {
         Console.SetCursorPosition(0, 6);
-        //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
-        Util.PrintConsole($"인벤토리가 꽉 찼습니다.                   ", ConsoleColor.Red);
+        GameManager.Log.Log("인벤토리가 꽉 찼습니다.", ConsoleColor.Red);
     }
 
     public bool IsExist(Item item) => _items.Contains(item);

@@ -20,6 +20,8 @@ public sealed class GameManager
     public static ObjectManager ObjectPools { get => _objectPools; }
     private static UIManager _uiManager = UIManager.GetInstance();
     public static UIManager UI { get => _uiManager; }
+    private static LogManager _log;
+    public static LogManager Log { get => _log; }
 
     private static Player _player = Player.GetInstance();
     public static Player GamePlayer { get => _player; }
@@ -37,6 +39,9 @@ public sealed class GameManager
 
     private void Start()
     {
+        //# 의존성 주입
+        _log = LogManager.GetInstance(UI);
+
         //# Console 창 커서 안보이게 변경
         Console.CursorVisible = false;
 

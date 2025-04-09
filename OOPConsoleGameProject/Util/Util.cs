@@ -26,5 +26,18 @@ public static class Util
         Console.ResetColor();
     }
 
+    public static int GetMessageWidth(string message)
+    {
+        int width = 0;
+        foreach (char c in message)
+        {
+            if (IsWideChar(c)) width += 2;
+            else width += 1;
+        }
+        return width;
+    }
+
+    private static bool IsWideChar(char c) => (c >= 0xAC00 && c <= 0xD7A3);
+
     public static void Sleep(int delay) { Thread.Sleep(delay); }
 }
