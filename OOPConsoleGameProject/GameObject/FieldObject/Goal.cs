@@ -8,7 +8,7 @@ public class Goal : FieldObject
     private static char _initSymbol;
     private static ConsoleColor _initColor;
 
-    public Goal(ConsoleColor color, Vector2 position) : base(color, '○', position)
+    public Goal(Vector2 position, ConsoleColor color = ConsoleColor.DarkGreen) : base(color, '○', position)
     {
         Name = _name;
         Index = _goalIndex++;

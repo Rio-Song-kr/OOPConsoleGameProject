@@ -5,8 +5,8 @@ public class Navigation : Item
     public Navigation(
         string name,
         string[] descriptions,
-        ConsoleColor color,
-        Vector2 position)
+        Vector2 position,
+        ConsoleColor color = ConsoleColor.Yellow)
         : base(color, 'ξ', position)
     {
         Name = name;

@@ -5,7 +5,7 @@ public class Chest : FieldObject
     private static string _name { get; } = "Chest";
     private static int _chestIndex = 0;
 
-    public Chest(ConsoleColor color, Vector2 position) : base(color, '▣', position)
+    public Chest(Vector2 position, ConsoleColor color = ConsoleColor.Blue) : base(color, '▣', position)
     {
         //todo 상자는 문제를 출력(별도의 화면 필요)
         //todo 문제를 맞추면 인벤토리에 있는 힌트 제거 및 키 추가

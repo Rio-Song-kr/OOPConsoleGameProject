@@ -6,7 +6,7 @@ public class Rock : FieldObject
     private static string _name { get; } = "Rock";
     private static int _rockIndex = 0;
 
-    public Rock(ConsoleColor color, Vector2 position) : base(color, 'Φ', position)
+    public Rock(Vector2 position, ConsoleColor color = ConsoleColor.White) : base(color, 'Φ', position)
     {
         Name = _name;
         Index = _rockIndex++;

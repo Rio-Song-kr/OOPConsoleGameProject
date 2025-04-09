@@ -5,8 +5,8 @@ public class MusicBox : Item
     public MusicBox(
         string name,
         string[] descriptions,
-        ConsoleColor color,
-        Vector2 position)
+        Vector2 position,
+        ConsoleColor color = ConsoleColor.Yellow)
         : base(color, '♩', position)
     {
         Name = name;
