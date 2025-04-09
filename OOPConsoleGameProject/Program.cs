@@ -28,18 +28,18 @@ class Program
 //~         1) Level 클래스
 //~         2) Dungeon 클래스
 //~    2-5. 시작화면 - Level 씬 사이 중간 씬
-//# 3. UI 구성
-//#    3-1. UIManager
+//~ 3. UI 구성
+//~    3-1. UIManager
 //~ 4. Player
 //~ 5. 입력
 //~    5-1. 모든 입력은 InputManager가 관리
 //~    5-2. 각 Scene의 Input은 InputManager의 결과를 체크
 //~    5-3. Player 등은 InputManager의 event를 구독
 //~    5-4. PressAnyKey 추가
-//# 6. Inventory
+//~ 6. Inventory
 //~    6-1. 아이템 추가(최대 3개)
-//#    6-2. UI 출력(UIManager를 통해 출력)
-//# 7. Test를 위한 Render와 Update
+//~    6-2. UI 출력(UIManager를 통해 출력)
+//~ 7. Test를 위한 Render와 Update
 //~    7-1. 맵에서 플레이어가 이동(기존 소코반 방식)
 //~ 8. 추가사항
 //~    8-1. SceneManager 추가
@@ -69,15 +69,15 @@ class Program
 //~         1) 던전의 소코반에서 사용하는 돌
 //~    5-3. Goal
 //~         1) 던전의 소코반에서 돌이 올라갈 자리
-//#         2) 모든 자리에 돌이 올라가면 열쇠를 얻을 수 있으며, 이전 맵으로 이동
+//~         2) 모든 자리에 돌이 올라가면 열쇠를 얻을 수 있으며, 이전 맵으로 이동
 //# 6. Item
 //~    6-1. 열쇠
 //#         1) 단순한 열쇠에 대한 정보 출력
 //#    6-2. 편지
 //#         1) 상자를 열기 위한 힌트 제공
-//# 7. Place
+//~ 7. Place
 //~    7-1. 던전
-//#         1) 열쇠를 얻기 위해 던전 맵으로 이동
+//~         1) 열쇠를 얻기 위해 던전 맵으로 이동
 //~    7-2. 문
 //~         1) 열쇠를 가지고 있는 상태에서만 겹쳐서 탈출이 가능함
 //# 8. Render
