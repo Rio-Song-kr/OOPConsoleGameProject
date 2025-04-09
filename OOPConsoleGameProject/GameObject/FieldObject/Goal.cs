@@ -5,11 +5,15 @@ public class Goal : FieldObject
     //todo 던전 맵(소코반)에서 사용할 돌이 올라갈 위치
     private static string _name { get; } = "Goal";
     private static int _goalIndex = 0;
+    private static char _initSymbol;
+    private static ConsoleColor _initColor;
 
     public Goal(ConsoleColor color, Vector2 position) : base(color, '○', position)
     {
         Name = _name;
         Index = _goalIndex++;
+        _initSymbol = Symbol;
+        _initColor = Color;
     }
 
     public override bool TryInteract(GameObject gameObject)
@@ -26,5 +30,11 @@ public class Goal : FieldObject
             return true;
         }
         return false;
+    }
+
+    public void Init()
+    {
+        Symbol = _initSymbol;
+        Color = _initColor;
     }
 }

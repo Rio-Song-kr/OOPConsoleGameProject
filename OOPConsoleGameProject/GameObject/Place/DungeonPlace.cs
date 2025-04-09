@@ -2,7 +2,7 @@ namespace OOPConsoleGameProject;
 
 public class DungeonPlace : Place
 {
-    public DungeonPlace(SceneName scene, char symbol, Vector2 position) : base(scene, symbol, position) { }
+    public DungeonPlace(SceneName scene, Vector2 position) : base(scene, '∩', position) { }
 
     public override bool TryInteract(GameObject gameObject)
     {

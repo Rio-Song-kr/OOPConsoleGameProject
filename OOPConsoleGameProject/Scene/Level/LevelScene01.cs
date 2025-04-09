@@ -23,15 +23,8 @@ public class LevelScene01 : Level
         yellowKey.SetPosition(new Vector2(1, 4));
         GameObjects.Add(yellowKey);
 
-        //# Rock 추가 - 테스트용
-        FieldObject rock0 = GameManager.ObjectPools.GetFieldObject("Rock", 0);
-        rock0.SetPosition(new Vector2(4, 4));
-        GameObjects.Add(rock0);
-
-        //# Goal 추가 - 테스트용
-        FieldObject goal0 = GameManager.ObjectPools.GetFieldObject("Goal", 0);
-        goal0.SetPosition(new Vector2(6, 4));
-        GameObjects.Add(goal0);
+        //# 던전 추가
+        GameObjects.Add(new DungeonPlace(SceneName.Dungeon01, new Vector2(6, 4)));
     }
 
     public override void OnEnter()

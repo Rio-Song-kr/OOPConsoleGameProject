@@ -7,4 +7,5 @@ public enum SceneName
     Level01,
     Level02,
     Level03,
+    Dungeon01,
 }
