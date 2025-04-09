@@ -24,7 +24,8 @@ public class Level : Scene
         {
             if (GameManager.GamePlayer.Position == gameObject.Position)
             {
-                bool isSuccess = gameObject.TryInteract(GameManager.GamePlayer);
+                gameObject.TryInteract(GameManager.GamePlayer);
+
                 if (gameObject is Item item)
                 {
                     if (item == null || !GameManager.Inventory.IsExist(item))
