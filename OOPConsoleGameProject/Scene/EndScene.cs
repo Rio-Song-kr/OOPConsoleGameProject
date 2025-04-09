@@ -9,7 +9,7 @@ public class EndScene : Scene
         {
             "축하합니다 !",
             "탈출에 성공하였습니다!",
-            "게임을 종료하려면, 아무 키나 누르세요"
+            "게임을 종료하려면, 아무 키나 누르세요."
         }, false);
 
         _isCalledRender = true;
