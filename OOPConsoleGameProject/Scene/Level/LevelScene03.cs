@@ -21,6 +21,11 @@ public class LevelScene03 : Level
         Item musicBox = GameManager.ItemPools.GetItem("Music Box");
         musicBox.SetPosition(new Vector2(1, 4));
         GameObjects.Add(musicBox);
+
+        //# 내비게이션 추가
+        Item navigation = GameManager.ItemPools.GetItem("Navigation");
+        navigation.SetPosition(new Vector2(3, 4));
+        GameObjects.Add(navigation);
     }
 
     public override void OnEnter()

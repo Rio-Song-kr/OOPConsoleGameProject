@@ -60,6 +60,13 @@ public class GameManager
                 ConsoleColor.Yellow,
                 new Vector2(-1, -1))
         );
+        _itemPools.AddItem(
+            new Navigation(
+                "Navigation",
+                new string[] { "문이 있는 곳까지 안내 해주는 네비게이션." },
+                ConsoleColor.Yellow,
+                new Vector2(-1, -1))
+        );
 
 
         //# Scene 추가
