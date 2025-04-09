@@ -3,21 +3,25 @@ namespace OOPConsoleGameProject;
 public class MapManager
 {
     private static MapManager _instance;
+
+    public readonly static char WallSign = '#';
+    public readonly static char GroundSign = ' ';
+
     private TileType[,] _mapTileTile;
     public TileType[,] MapTile { get => _mapTileTile; }
     private string[] _mapData;
     public string[] MapData { get => _mapData; }
     private Vector2 _mapSize;
-    public readonly static char WallSign = '#';
-    public readonly static char GroundSign = ' ';
 
-    private MapManager() { }
+    private IMapPrint _print;
 
-    public static MapManager GetInstance()
+    private MapManager(IMapPrint print) { _print = print; }
+
+    public static MapManager GetInstance(IMapPrint print)
     {
         if (_instance == null)
         {
-            _instance = new MapManager();
+            _instance = new MapManager(print);
         }
 
         return _instance;
@@ -46,5 +50,6 @@ public class MapManager
     }
 
     //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
-    public void Print() { GameManager.UI.PrintMap(_mapData, _mapSize); }
+    public void Print() { _print.PrintMap(_mapData, _mapSize); }
+    public void ClearMap() { _print.ClearMapArea(); }
 }

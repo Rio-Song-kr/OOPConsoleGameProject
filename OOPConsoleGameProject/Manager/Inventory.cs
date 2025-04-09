@@ -2,20 +2,25 @@
 
 public class Inventory
 {
+    private IItemPrint _ui;
+
     private static Inventory _instance;
     private List<Item> _items;
     private readonly int _size = 3;
-    public event Action<Item, int> OnAdd;
-    public event Action<int> OnRemove;
 
-    private Inventory() { _items = new List<Item>(); }
     private int currentItemIndex = -1;
 
-    public static Inventory GetInstance()
+    private Inventory(IItemPrint ui)
+    {
+        _items = new List<Item>();
+        _ui = ui;
+    }
+
+    public static Inventory GetInstance(IItemPrint ui)
     {
         if (_instance == null)
         {
-            _instance = new Inventory();
+            _instance = new Inventory(ui);
         }
         return _instance;
     }
@@ -25,7 +30,7 @@ public class Inventory
         if (_items.Count == _size) return;
         _items.Add(item);
         int index = _items.IndexOf(item);
-        OnAdd(item, index);
+        _ui.PrintItem(item, index);
         GameManager.Log.Log($"{item.Name}이/가 인벤토리에 추가되었습니다.", ConsoleColor.DarkGreen);
     }
 
@@ -35,7 +40,7 @@ public class Inventory
     {
         for (int i = 0; i < _items.Count; i++)
         {
-            OnRemove(i);
+            _ui.PrintEmptyItem(i);
         }
         _items = new List<Item>();
         GameManager.Log.Log("인벤토리가 초기화되었습니다.", ConsoleColor.DarkMagenta);

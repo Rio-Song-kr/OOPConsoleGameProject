@@ -5,7 +5,7 @@ public class EndScene : Scene
     private bool _isCalledRender = false;
     public override void Render()
     {
-        GameManager.UI.PrintTextAtCenter(new string[]
+        GameManager.Scene.PrintText(new string[]
         {
             "축하합니다 !",
             "탈출에 성공하였습니다!",

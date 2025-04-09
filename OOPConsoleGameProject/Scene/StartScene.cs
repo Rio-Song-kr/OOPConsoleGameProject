@@ -4,7 +4,7 @@ public class StartScene : Scene
 {
     public override void Render()
     {
-        GameManager.UI.PrintTextAtCenter(new string[]
+        GameManager.Scene.PrintText(new string[]
         {
             "미로 탈출 게임!",
             "조작키 : ↑, ←, ↓, →",

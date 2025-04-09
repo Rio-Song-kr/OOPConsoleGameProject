@@ -1,6 +1,6 @@
 ﻿namespace OOPConsoleGameProject;
 
-public class UIManager : ILogOutput
+public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
 {
     private static UIManager _instance;
     private RectanglePosition _mapPosition;
@@ -10,6 +10,7 @@ public class UIManager : ILogOutput
     public Vector2 MapStartOffset { get => _mapStartOffset; }
     private Vector2 _itemOffset;
     private Vector2 _logOffset;
+    // private Vector2 _playerCoordinate;
 
     private UIManager()
     {
@@ -60,6 +61,7 @@ public class UIManager : ILogOutput
         PrintOutline(_inventoryPosition);
         PrintOutline(_logPosition);
         PrintInventoryText();
+        PrintLogText();
     }
 
     private void PrintOutline(RectanglePosition position)
@@ -94,6 +96,7 @@ public class UIManager : ILogOutput
         Console.Write('┛');
         Console.WriteLine();
     }
+
     private void PrintInventoryText()
     {
         Vector2 startPosition =
@@ -115,25 +118,18 @@ public class UIManager : ILogOutput
         }
     }
 
-    //# 인벤토리에 아이템이 추가되면 출력
-    public void PrintItem(Item item, int index)
+    private void PrintLogText()
     {
-        Console.SetCursorPosition(_itemOffset.X, _itemOffset.Y + index);
-        Console.Write(item.Symbol);
+        Console.SetCursorPosition(_logOffset.X, _logOffset.Y - 1);
+        Console.Write("LOG");
     }
 
-    //# 인벤토리에서 아이템이 제거되면(또는 특정 아이템이 사용되면) 출력
-    public void PrintEmptyItem(int index)
-    {
-        Console.SetCursorPosition(_itemOffset.X, _itemOffset.Y + index);
-        Console.Write('_');
-    }
-
+    //! ITextPrint
     public void PrintTextAtCenter(string[] texts, bool isSequentially, int delay = 0)
     {
         ClearMapArea();
         int textCounts = texts.Length;
-        int intervalY = (_mapPosition.EndPosition.Y - _mapPosition.StartPosition.Y - textCounts) / (textCounts + 1) + 1;
+        int intervalY = (_mapPosition.EndPosition.Y - _mapPosition.StartPosition.Y - textCounts - 1) / textCounts;
         int yPosition = _mapPosition.StartPosition.Y + intervalY;
 
         for (int i = 0; i < textCounts; i++)
@@ -150,6 +146,7 @@ public class UIManager : ILogOutput
         }
     }
 
+    //! IMapPrint
     public void PrintMap(string[] map, Vector2 mapSize)
     {
         int xPosition = _mapPosition.StartPosition.X + _mapStartOffset.X;
@@ -182,6 +179,7 @@ public class UIManager : ILogOutput
         }
     }
 
+    //! ILogPrint
     public void Log(List<string> messages, List<ConsoleColor> color)
     {
         for (int i = 0; i < messages.Count; i++)
@@ -192,4 +190,21 @@ public class UIManager : ILogOutput
             Util.PrintConsole(message, textColor: color[i]);
         }
     }
+
+    //! IItemPrint
+    //# 인벤토리에 아이템이 추가되면 출력
+    public void PrintItem(Item item, int index)
+    {
+        Console.SetCursorPosition(_itemOffset.X, _itemOffset.Y + index);
+        Console.Write(item.Symbol);
+    }
+
+    //# 인벤토리에서 아이템이 제거되면(또는 특정 아이템이 사용되면) 출력
+    public void PrintEmptyItem(int index)
+    {
+        Console.SetCursorPosition(_itemOffset.X, _itemOffset.Y + index);
+        Console.Write('_');
+    }
+
+    //todo 아이템 선택 시 정보 보여주는 것 추가해야 함
 }

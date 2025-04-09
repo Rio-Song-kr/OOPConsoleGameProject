@@ -31,7 +31,7 @@ public class LevelScene01 : Level
 
         if (IsFirstLoad)
         {
-            GameManager.UI.PrintTextAtCenter(new string[]
+            GameManager.Scene.PrintText(new string[]
             {
                 "아무것도 보이지 않아",
                 "무슨 일이 일어난 걸까?",
@@ -39,7 +39,7 @@ public class LevelScene01 : Level
                 "나를 둘러싼 벽들은 왜 이렇게 낯선걸까?"
             }, true, 100);
             Util.Sleep(1000);
-            GameManager.UI.ClearMapArea();
+            GameManager.Map.ClearMap();
         }
     }
 }

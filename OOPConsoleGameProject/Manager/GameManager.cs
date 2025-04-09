@@ -5,15 +5,15 @@ public sealed class GameManager
     private static GameManager s_Instance;
     public static GameManager Instance { get => GetInstance(); }
 
-    private static SceneManager _scene = SceneManager.GetInstance();
+    private static SceneManager _scene;
     public static SceneManager Scene { get => _scene; }
 
     private static InputManager _input = InputManager.GetInstance();
     public static InputManager Input { get => _input; }
 
-    private static MapManager _map = MapManager.GetInstance();
+    private static MapManager _map;
     public static MapManager Map { get => _map; }
-    private static Inventory _inventory = Inventory.GetInstance();
+    private static Inventory _inventory;
     public static Inventory Inventory { get => _inventory; }
 
     private static ObjectManager _objectPools = ObjectManager.GetInstance();
@@ -40,7 +40,10 @@ public sealed class GameManager
     private void Start()
     {
         //# 의존성 주입
-        _log = LogManager.GetInstance(UI);
+        _log = LogManager.GetInstance(_uiManager);
+        _inventory = Inventory.GetInstance(_uiManager);
+        _map = MapManager.GetInstance(_uiManager);
+        _scene = SceneManager.GetInstance(_uiManager);
 
         //# Console 창 커서 안보이게 변경
         Console.CursorVisible = false;
@@ -104,12 +107,6 @@ public sealed class GameManager
 
         _input.OnUse -= _inventory.UseAt;
         _input.OnUse += _inventory.UseAt;
-
-        _inventory.OnAdd -= _uiManager.PrintItem;
-        _inventory.OnAdd += _uiManager.PrintItem;
-
-        _inventory.OnRemove -= _uiManager.PrintEmptyItem;
-        _inventory.OnRemove += _uiManager.PrintEmptyItem;
     }
 
     public void Run()
