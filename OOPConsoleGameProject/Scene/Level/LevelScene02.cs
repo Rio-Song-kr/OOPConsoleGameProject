@@ -2,6 +2,8 @@ namespace OOPConsoleGameProject;
 
 public class LevelScene02 : Level
 {
+    private DungeonPlace _dungeon;
+
     public LevelScene02()
     {
         MapData = new string[]
@@ -23,7 +25,8 @@ public class LevelScene02 : Level
         GameObjects.Add(letter);
 
         //# 던전 추가
-        GameObjects.Add(new DungeonPlace(SceneName.Dungeon01, new Vector2(6, 4)));
+        _dungeon = new DungeonPlace(SceneName.Dungeon01, new Vector2(6, 4));
+        GameObjects.Add(_dungeon);
     }
 
     public override void OnEnter()
@@ -38,6 +41,7 @@ public class LevelScene02 : Level
         else
         {
             GameManager.GamePlayer.SetPosition(new Vector2(5, 4));
+            GameObjects.Remove(_dungeon);
         }
     }
 }
