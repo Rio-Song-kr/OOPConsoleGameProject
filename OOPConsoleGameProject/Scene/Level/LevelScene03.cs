@@ -36,6 +36,11 @@ public class LevelScene03 : Level
         GameManager.Inventory.RemoveAll();
         GameManager.UI.ClearMapArea();
         GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
+
+        //# 열쇠 추가
+        Item key = GameManager.ObjectPools.GetItem("Key");
+        key.SetPosition(new Vector2(6, 4));
+        GameObjects.Add(key);
         // }
         // else
         // {
