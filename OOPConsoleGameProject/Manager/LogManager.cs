@@ -37,5 +37,5 @@ public class LogManager
         PrintLog();
     }
 
-    public void PrintLog() { _log.Log(_logMessages, _colors); }
+    private void PrintLog() { _log.Log(_logMessages, _colors); }
 }
