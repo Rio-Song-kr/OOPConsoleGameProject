@@ -5,9 +5,13 @@ public class EndScene : Scene
     private bool _isCalledRender = false;
     public override void Render()
     {
-        //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
-        Util.PrintConsole("Congratulation! You escaped!");
-        Util.PrintConsole("Press any key to Exit!");
+        GameManager.UI.PrintTextAtCenter(new string[]
+        {
+            "축하합니다 !",
+            "탈출에 성공하였습니다!",
+            "게임을 종료하려면, 아무 키나 누르세요"
+        }, false);
+
         _isCalledRender = true;
     }
 
