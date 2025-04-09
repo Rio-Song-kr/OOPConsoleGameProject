@@ -124,17 +124,21 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
         Console.Write("LOG");
     }
 
+    private void CalculatePosition(string[] texts, out int textCounts, out int intervalY, out int yPosition)
+    {
+        textCounts = texts.Length;
+        intervalY = (_mapPosition.EndPosition.Y - _mapPosition.StartPosition.Y - textCounts + 1) / (textCounts + 1);
+
+
+        yPosition = _mapPosition.StartPosition.Y + intervalY + 1 +
+                    (intervalY == 1 ? 1 : textCounts == 3 ? -1 : 0);
+    }
+
     //! ITextPrint
     public void PrintTextAtCenter(string[] texts, bool isSequentially, int delay = 0)
     {
         ClearMapArea();
-        int textCounts = texts.Length;
-        int intervalY =
-            (_mapPosition.EndPosition.Y - _mapPosition.StartPosition.Y - textCounts + 1) / (textCounts + 1);
-
-
-        int yPosition = _mapPosition.StartPosition.Y + intervalY + 1 +
-                        (intervalY == 1 ? 1 : textCounts == 3 ? -1 : 0);
+        CalculatePosition(texts, out int textCounts, out int intervalY, out int yPosition);
 
 
         for (int i = 0; i < textCounts; i++)
@@ -151,8 +155,84 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
         }
     }
 
+    //todo 추후 다른 작업 완료 후 구현
+    /*
+    public void PrintChest(char[] message, Vector2 position)
+    {
+        char[,] arrows = new char[,]
+        {
+            { '○', '○', '○', '○' },
+            { ' ', ' ', ' ', ' ' },
+            { '○', '○', '○', '○' }
+        };
+
+        for (int i = 0; i < message.Length; i++)
+        {
+            arrows[1, i] = message[i];
+        }
+
+        char selected = '●';
+
+        if (position.Y == 0 || position.Y == 1) arrows[position.Y, position.X] = selected;
+
+        string[] descriptions = new string[4];
+        descriptions[3] = "E  n  t  e  r";
+
+        int rowCount = arrows.GetLength(0);
+        int columnCount = arrows.GetLength(1);
+
+        for (int i = 0; i < rowCount; i++)
+        {
+            char[] rowChars = new char[columnCount * 4];
+            for (int j = 0; j < columnCount; j++)
+            {
+                rowChars[j * 4] = arrows[i, j];
+                if (j != columnCount - 1)
+                {
+                    rowChars[j * 4 + 1] = ' ';
+                    rowChars[j * 4 + 2] = ' ';
+                    rowChars[j * 4 + 3] = ' ';
+                }
+            }
+            descriptions[i] = new string(rowChars);
+        }
+
+        PrintChestText(descriptions, position);
+    }
+
+    private void PrintChestText(string[] texts, Vector2 position)
+    {
+        ClearMapArea();
+        CalculatePosition(texts, out int textCounts, out int intervalY, out int yPosition);
+
+        for (int i = 0; i < textCounts; i++)
+        {
+            int length = Util.GetMessageWidth(texts[i]);
+            int intervalX = (_mapPosition.EndPosition.X - _mapPosition.StartPosition.X - length) / 2;
+
+            Console.SetCursorPosition(intervalX, yPosition);
+
+            if (position.Y == 3 && i == 3)
+            {
+                Util.PrintConsole(texts[i], backgroundColor: ConsoleColor.Gray, textColor: ConsoleColor.Black);
+            }
+            else Util.PrintConsole(texts[i]);
+
+            yPosition += intervalY + 1;
+        }
+
+        // (0,0) (1,0) (2,0) (3,0)
+        //   △     △     △     △
+        //         message
+        // (0,1) (1,1) (2,1) (3,1)
+        //   ▽     ▽     ▽     ▽
+        // (x,2)
+        //      E N T E R
+    }
+    */
+
     //! IMapPrint
-    public void PrintMap(string[] map, Vector2 mapSize)
+    public void PrintMap(TileType[,] mapTile, Vector2 mapSize)
     {
         int xPosition = _mapPosition.StartPosition.X + _mapStartOffset.X;
         int yPosition = _mapPosition.StartPosition.Y + _mapStartOffset.Y;
@@ -166,7 +246,9 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
             {
                 if (x >= _mapPosition.EndPosition.X - 1)
                     break;
-                Console.Write(map[y][x]);
+
+                if (mapTile[y, x] == TileType.Wall) Console.Write(Maze.Wall);
+                else Console.Write(' ');
             }
         }
     }
