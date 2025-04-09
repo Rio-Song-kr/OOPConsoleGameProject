@@ -13,8 +13,7 @@ class Program
 //~ 1. GameManager
 //~    1-1. Scene 전환
 //~    1-2. Render, Input, Update, Result를 실행
-//todo 상세한 Scene의 구성(텍스트, 오브젝트 배치 등)은 기본 기능 설계 후 수정
-//# 2. Scene 구성
+//~ 2. Scene 구성
 //~    2-1. 상호작용 가능한 요소(아이템, 던전 입구, 문 등)
 //~         a. 우선적으로 맵 이동을 위한 Object를 먼저 생성
 //~         b. 던전에서 사용할 Rock, Goal 구현
@@ -27,14 +26,14 @@ class Program
 //~    2-3. EndScene 클래스
 //~    2-4. Scene 클래스
 //~         1) Level 클래스
-//#         2) Dungeon 클래스
-//#    2-5. 시작화면 - Level 씬 사이 중간 씬
+//~         2) Dungeon 클래스
+//~    2-5. 시작화면 - Level 씬 사이 중간 씬
 //# 3. UI 구성
 //#    3-1. UIManager
 //~ 4. Player
-//# 5. 입력
+//~ 5. 입력
 //~    5-1. 모든 입력은 InputManager가 관리
-//#    5-2. 각 Scene의 Input은 InputManager의 결과를 체크
+//~    5-2. 각 Scene의 Input은 InputManager의 결과를 체크
 //~    5-3. Player 등은 InputManager의 event를 구독
 //~    5-4. PressAnyKey 추가
 //# 6. Inventory
@@ -46,16 +45,16 @@ class Program
 //~    8-1. SceneManager 추가
 
 //! 응용
-//# 2. Scene 구성
-//#    2-1. Scene 클래스
+//~ 2. Scene 구성
+//~    2-1. Scene 클래스
 //~         1) 세부 LevelScene
 //~            (1) LevelScene_xx 클래스
-//#         2) 세부 Dungeon 클래스
-//#            (1) DungeonScene_xx 클래스
-//#            (2) Map과 Object의 위치는 수동 지정
-//#            (3) 소코반
-//# 3. Player
-//#    3-1. Interaction
+//~         2) 세부 Dungeon 클래스
+//~            (1) DungeonScene_xx 클래스
+//~            (2) Map과 Object의 위치는 수동 지정
+//~            (3) 소코반
+//~ 3. Player
+//~    3-1. Interaction
 //# 4. Inventory
 //#    4-1. 아이템 선택(정보 보기)
 //#         1) 열쇠 - 정보출력
