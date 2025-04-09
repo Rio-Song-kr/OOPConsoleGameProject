@@ -16,8 +16,7 @@ public class LevelScene01 : Level
 
         //# 문 추가
         GameObjects = new List<GameObject>();
-        GameObjects.Add(
-            new DoorPlace(SceneName.Level02, new Vector2(5, 1)));
+        GameObjects.Add(new DoorPlace(SceneName.Level02, new Vector2(5, 1)));
 
         //# 열쇠 추가
         Item key = GameManager.ObjectPools.GetItem("Key");
@@ -32,7 +31,6 @@ public class LevelScene01 : Level
 
         if (IsFirstLoad)
         {
-            //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
             GameManager.UI.PrintTextAtCenter(new string[]
             {
                 "아무것도 보이지 않아",
