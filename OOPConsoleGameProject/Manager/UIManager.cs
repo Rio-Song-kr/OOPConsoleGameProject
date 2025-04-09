@@ -17,17 +17,17 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
         _mapPosition = new RectanglePosition()
         {
             StartPosition = new Vector2(0, 0),
-            EndPosition = new Vector2(65, 18)
+            EndPosition = new Vector2(65, 19)
         };
         _inventoryPosition = new RectanglePosition()
         {
             StartPosition = new Vector2(66, 0),
-            EndPosition = new Vector2(73, 18)
+            EndPosition = new Vector2(73, 19)
         };
         _logPosition = new RectanglePosition()
         {
-            StartPosition = new Vector2(0, 19),
-            EndPosition = new Vector2(73, 25)
+            StartPosition = new Vector2(0, 20),
+            EndPosition = new Vector2(73, 26)
         };
         _itemOffset = new Vector2(
             (_inventoryPosition.StartPosition.X + _inventoryPosition.EndPosition.X) / 2 - 1,
@@ -38,7 +38,7 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
             _mapPosition.StartPosition.Y + 1
         );
         _logOffset = new Vector2(
-            _logPosition.StartPosition.X + 1,
+            _logPosition.StartPosition.X + 2,
             _logPosition.StartPosition.Y + 2
         );
 
@@ -129,8 +129,13 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
     {
         ClearMapArea();
         int textCounts = texts.Length;
-        int intervalY = (_mapPosition.EndPosition.Y - _mapPosition.StartPosition.Y - textCounts - 1) / textCounts;
-        int yPosition = _mapPosition.StartPosition.Y + intervalY;
+        int intervalY =
+            (_mapPosition.EndPosition.Y - _mapPosition.StartPosition.Y - textCounts + 1) / (textCounts + 1);
+
+
+        int yPosition = _mapPosition.StartPosition.Y + intervalY + 1 +
+                        (intervalY == 1 ? 1 : textCounts == 3 ? -1 : 0);
+
 
         for (int i = 0; i < textCounts; i++)
         {
@@ -206,5 +211,18 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
         Console.Write('_');
     }
 
-    //todo 아이템 선택 시 정보 보여주는 것 추가해야 함
+    public void PrintItemInfo(Item item)
+    {
+        string[] descriptions = new string[item.Description.Count + 2];
+        descriptions[0] = new string($"----------     {item.Name}     ----------");
+
+        for (int i = 0; i < item.Description.Count; i++)
+        {
+            descriptions[i + 1] = item.Description[i];
+        }
+        descriptions[item.Description.Count + 1] = "맵으로 이동하려면 아무 키나 누르세요.";
+
+        ClearMapArea();
+        PrintTextAtCenter(descriptions, false);
+    }
 }

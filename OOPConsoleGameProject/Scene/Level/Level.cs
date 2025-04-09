@@ -7,13 +7,16 @@ public class Level : Scene
 
     public override void Render()
     {
-        GameManager.Map.Print();
-        foreach (var gameObject in GameObjects)
+        if (!GameManager.Inventory.PrintItemInfo)
         {
-            gameObject.Print();
-        }
+            GameManager.Map.Print();
+            foreach (var gameObject in GameObjects)
+            {
+                gameObject.Print();
+            }
 
-        GameManager.GamePlayer.Print();
+            GameManager.GamePlayer.Print();
+        }
     }
 
     public override void Input() { GameManager.Input.GetKey(); }

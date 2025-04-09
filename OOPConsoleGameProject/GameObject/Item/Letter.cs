@@ -17,7 +17,6 @@ public class Letter : Item
             Description.Add(description);
         }
     }
-    public override void Use() { }
 
-    public override void Select() { }
+    public override void Use() { }
 }

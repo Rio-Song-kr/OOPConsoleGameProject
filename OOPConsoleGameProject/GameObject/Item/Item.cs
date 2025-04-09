@@ -9,9 +9,6 @@ public abstract class Item : GameObject, IUsable, ISelectable
 
     public Item(ConsoleColor color, char symbol, Vector2 position) : base(color, symbol, position, true) { }
 
-    //todo 추후 UIManager 생성 후 수정
-    public string GetInfo() => $"{_name},{_description}";
-
     public override bool TryInteract(GameObject gameObject)
     {
         if (gameObject is not Player)
@@ -22,5 +19,10 @@ public abstract class Item : GameObject, IUsable, ISelectable
     }
 
     public abstract void Use();
-    public abstract void Select();
+
+    public void Select()
+    {
+        GameManager.Log.Log($"{Name} 정보창을 열었습니다", ConsoleColor.Cyan);
+        GameManager.Inventory.PrintInfo(this);
+    }
 }

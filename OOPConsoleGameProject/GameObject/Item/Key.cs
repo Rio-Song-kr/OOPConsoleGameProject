@@ -18,10 +18,5 @@ public class Key : Item
         }
     }
 
-    public override void Use()
-    {
-        //todo Item 사용 관련 처리가 필요함
-    }
-
-    public override void Select() { }
+    public override void Use() { }
 }

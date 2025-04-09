@@ -9,6 +9,7 @@ public class Inventory
     private readonly int _size = 3;
 
     private int currentItemIndex = -1;
+    public bool PrintItemInfo = false;
 
     private Inventory(IItemPrint ui)
     {
@@ -58,7 +59,6 @@ public class Inventory
 
         if (_items[currentItemIndex] is ISelectable selectableItem)
         {
-            //todo Select 시 아이템 정보가 출력되게 변경
             selectableItem.Select();
         }
     }
@@ -80,4 +80,10 @@ public class Inventory
     }
 
     public bool IsExist(Item item) => _items.Contains(item);
+
+    public void PrintInfo(Item item)
+    {
+        PrintItemInfo = true;
+        _ui.PrintItemInfo(item);
+    }
 }

@@ -19,5 +19,4 @@ public class MusicBox : Item
     }
 
     public override void Use() { }
-    public override void Select() { }
 }
