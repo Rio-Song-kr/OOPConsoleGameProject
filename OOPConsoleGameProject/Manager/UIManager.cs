@@ -1,4 +1,6 @@
-﻿namespace OOPConsoleGameProject;
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace OOPConsoleGameProject;
 
 public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObjectPrint
 {
@@ -383,22 +385,28 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
 
         if (gameObject is Player)
             //# Player는 Center에 고정
+        {
             Console.SetCursorPosition(_mapCenter.X - halfXRenderSize + 1, _mapCenter.Y);
+        }
         else
         {
-            int xPos = gameObject.Position.X + _mapCenter.X - halfXRenderSize;
-            int yPos = gameObject.Position.Y + _mapCenter.Y - halfYRenderSize + 1;
+            _moveOffset = GameManager.GamePlayer.Position - Vector2.Unit;
+
+            int xPos = gameObject.Position.X + _mapCenter.X - halfXRenderSize - _moveOffset.X;
+            int yPos = gameObject.Position.Y + _mapCenter.Y - 1 - _moveOffset.Y;
+
 
             if (xPos < 0 || xPos >= _mapPosition.EndPosition.X || yPos < 0 || yPos > _mapPosition.EndPosition.Y)
                 return;
 
-            if (xPos < GameManager.GamePlayer.Position.X + _mapCenter.X - halfXRenderSize + 1 ||
-                xPos >= GameManager.GamePlayer.Position.X + _mapCenter.X + halfXRenderSize - 1 ||
-                yPos < GameManager.GamePlayer.Position.Y + _mapCenter.Y - halfYRenderSize ||
-                yPos >= GameManager.GamePlayer.Position.Y + _mapCenter.Y + halfYRenderSize)
+            Vector2 playerPosition = new Vector2(_mapCenter.X - halfXRenderSize + 1, _mapCenter.Y);
+
+            if (xPos < playerPosition.X - halfXRenderSize + 1 ||
+                xPos > playerPosition.X + halfXRenderSize - 1 ||
+                yPos < playerPosition.Y - halfYRenderSize ||
+                yPos > playerPosition.Y + halfYRenderSize)
                 return;
 
-            // Console.SetCursorPosition(xPos - _moveOffset.X, yPos - _moveOffset.Y);
             Console.SetCursorPosition(xPos, yPos);
         }
         Console.ForegroundColor = gameObject.Color;
