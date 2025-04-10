@@ -3,4 +3,4 @@
 미로 탈출 게임(씬별 시야 제한)
 방탈출 + 소코반(구현 중)
 ## 구현 상황
-[!Image](https://personal.riosong.kro.kr/blog/content/images/size/w1000/2025/04/image-67.png)
+![Image](https://personal.riosong.kro.kr/blog/content/images/size/w1000/2025/04/image-67.png)
