@@ -4,13 +4,14 @@ public class Level : Scene
 {
     protected TileType[,] MapTile;
     protected List<GameObject> GameObjects;
+    protected RenderArea Area;
 
     public override void Render()
     {
         if (!GameManager.Inventory.PrintItemInfo)
         {
             // GameManager.Map.Print();
-            GameManager.Map.Print(RenderArea.Render9x5);
+            GameManager.Map.Print(Area);
             foreach (var gameObject in GameObjects)
             {
                 gameObject.Print();

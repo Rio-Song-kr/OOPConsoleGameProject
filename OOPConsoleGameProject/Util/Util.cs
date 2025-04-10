@@ -50,4 +50,34 @@ public static class Util
     private static bool IsWideChar(char c) => (c >= 0xAC00 && c <= 0xD7A3);
 
     public static void Sleep(int delay) { Thread.Sleep(delay); }
+
+    public static Vector2 RandomCoordinates(SceneName sceneName, List<GameObject> gameObjects)
+    {
+        //todo 랜덤 좌표를 생성한 후, 해당 위치가 벽이 아닌지 체크하고 반환
+        Random rand = new Random();
+        Vector2 position = Vector2.Unit;
+
+        do
+        {
+            position = new Vector2(
+                rand.Next(1, GameManager.Instance.MazeSize[sceneName].X - 1),
+                rand.Next(1, GameManager.Instance.MazeSize[sceneName].Y - 1)
+            );
+        } while (IsWallOrFieldObject(position, gameObjects));
+        return position;
+    }
+
+    private static bool IsWallOrFieldObject(Vector2 position, List<GameObject> gameObjects)
+    {
+        //todo WallCheck와 Object 체크
+        if (GameManager.Map.MapTile[position.Y, position.X] == TileType.Wall) return true;
+
+        // Object 체크
+        foreach (var gameObject in gameObjects)
+        {
+            if (position == gameObject.Position) return true;
+        }
+
+        return false;
+    }
 }

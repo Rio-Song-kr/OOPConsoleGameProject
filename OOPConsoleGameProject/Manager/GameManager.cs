@@ -28,6 +28,11 @@ public sealed class GameManager
 
     private bool _isGameOver;
 
+    private Dictionary<SceneName, Vector2> _mazeSize = new Dictionary<SceneName, Vector2>();
+    public Dictionary<SceneName, Vector2> MazeSize { get => _mazeSize; }
+    private Dictionary<SceneName, RenderArea> _area = new Dictionary<SceneName, RenderArea>();
+    public Dictionary<SceneName, RenderArea> Area { get => _area; }
+
     private static GameManager GetInstance()
     {
         if (s_Instance == null)
@@ -48,7 +53,25 @@ public sealed class GameManager
         //# Console 창 커서 안보이게 변경
         Console.CursorVisible = false;
 
+        //# ObjectPooling
         ObjectPooling();
+
+        //# MazeSize 설정
+        _mazeSize[SceneName.Level01] = new Vector2(33, 23);
+        _mazeSize[SceneName.Level02] = new Vector2(43, 33);
+        _mazeSize[SceneName.Level03] = new Vector2(53, 43);
+        _mazeSize[SceneName.Level04] = new Vector2(73, 63);
+        _mazeSize[SceneName.Level05] = new Vector2(93, 83);
+        _mazeSize[SceneName.Level04] = new Vector2(113, 103);
+        _mazeSize[SceneName.Level04] = new Vector2(153, 143);
+
+        _area[SceneName.Level01] = RenderArea.Render31x15;
+        _area[SceneName.Level02] = RenderArea.Render27x13;
+        _area[SceneName.Level03] = RenderArea.Render23x11;
+        _area[SceneName.Level04] = RenderArea.Render19x9;
+        _area[SceneName.Level05] = RenderArea.Render15x7;
+        _area[SceneName.Level06] = RenderArea.Render11x5;
+        _area[SceneName.Level07] = RenderArea.Render7x3;
 
         //# Scene 추가
         _scene.Add(SceneName.Start, new StartScene());
@@ -57,7 +80,11 @@ public sealed class GameManager
         _scene.Add(SceneName.Level02, new LevelScene02());
         _scene.Add(SceneName.Level03, new LevelScene03());
         _scene.Add(SceneName.Level04, new LevelScene04());
-        _scene.Add(SceneName.Dungeon01, new DungeonScene01());
+        _scene.Add(SceneName.Level05, new LevelScene04());
+        _scene.Add(SceneName.Level06, new LevelScene04());
+        _scene.Add(SceneName.Level07, new LevelScene04());
+        // _scene.Add(SceneName.Dungeon01, new DungeonScene01());
+        // _scene.Add(SceneName.Dungeon02, new DungeonScene02());
 
         //# 현재 Scene 설정
         _scene.Move(SceneName.Start);

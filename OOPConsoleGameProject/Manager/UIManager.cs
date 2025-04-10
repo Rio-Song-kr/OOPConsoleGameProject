@@ -15,6 +15,7 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
     private Vector2 _mapCenter;
     private RenderArea _renderArea;
     private Vector2 _moveOffset;
+    private int MapXOffset = 10;
     // private Vector2 _playerCoordinate;
 
     private UIManager()
@@ -266,24 +267,27 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
     public void PrintLimitedSightMap(TileType[,] mapTile, Vector2 mapSize, RenderArea renderArea)
     {
         _renderArea = renderArea;
-        int renderSize = renderArea switch
+        (int renderXSize, int renderYSize) = _renderArea switch
         {
-            RenderArea.Render7x3 => 7,
-            RenderArea.Render9x5 => 9,
-            RenderArea.Render11x7 => 11,
-            RenderArea.Render13x9 => 13,
-            RenderArea.Render15x11 => 15,
-            RenderArea.Redner17x13 => 17,
+            RenderArea.Render7x3 => (7, 3),
+            RenderArea.Render11x5 => (11, 5),
+            RenderArea.Render15x7 => (15, 7),
+            RenderArea.Render19x9 => (19, 9),
+            RenderArea.Render23x11 => (23, 11),
+            RenderArea.Render27x13 => (27, 13),
+            RenderArea.Render31x15 => (31, 15),
         };
+        MapXOffset = renderXSize / 2;
 
         int xPosition = _mapCenter.X;
         int yPosition = _mapCenter.Y;
 
-        int halfXRenderSize = renderSize / 2;
-        int halfYRenderSize = (renderSize - 4) / 2;
+        int halfXRenderSize = renderXSize / 2;
+        int halfYRenderSize = renderYSize / 2;
         for (int y = -halfYRenderSize - 1; y <= halfYRenderSize + 1; y++)
         {
-            Console.SetCursorPosition(xPosition - renderSize, yPosition + y);
+            //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
+            Console.SetCursorPosition(xPosition - renderXSize + MapXOffset, yPosition + y);
             for (int x = -halfXRenderSize - 1; x <= halfXRenderSize + 1; x++)
             {
                 int xPos = x + GameManager.GamePlayer.Position.X;
@@ -366,27 +370,26 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
     //! IGameObjectPrint
     public void PrintObject(GameObject gameObject)
     {
-        //todo Center에 해당하는 Offset 적용 필요함
-        //todo 문제는, Player는 항상 Center에 위치해야 함
-        //todo Player 이외의 물체는 offset을 적용한 값으로 출력해야 함
-        int renderSize = _renderArea switch
+        (int renderXSize, int renderYSize) = _renderArea switch
         {
-            RenderArea.Render7x3 => 7,
-            RenderArea.Render9x5 => 9,
-            RenderArea.Render11x7 => 11,
-            RenderArea.Render13x9 => 13,
-            RenderArea.Render15x11 => 15,
-            RenderArea.Redner17x13 => 17,
+            RenderArea.Render7x3 => (7, 3),
+            RenderArea.Render11x5 => (11, 5),
+            RenderArea.Render15x7 => (15, 7),
+            RenderArea.Render19x9 => (19, 9),
+            RenderArea.Render23x11 => (23, 11),
+            RenderArea.Render27x13 => (27, 13),
+            RenderArea.Render31x15 => (31, 15),
         };
 
         //# 나누기 오차 보정으로 + 1
-        int halfXRenderSize = renderSize / 2 + 1;
-        int halfYRenderSize = (renderSize - 4) / 2;
+        int halfXRenderSize = renderXSize / 2 + 1;
+        int halfYRenderSize = renderYSize / 2;
 
         if (gameObject is Player)
-            //# Player는 Center에 고정
         {
-            Console.SetCursorPosition(_mapCenter.X - halfXRenderSize + 1, _mapCenter.Y);
+            //# Player는 Center에 고정
+            //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
+            Console.SetCursorPosition(_mapCenter.X - halfXRenderSize + 1 + MapXOffset, _mapCenter.Y);
         }
         else
         {
@@ -403,11 +406,12 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
 
             if (xPos < playerPosition.X - halfXRenderSize + 1 ||
                 xPos > playerPosition.X + halfXRenderSize - 1 ||
-                yPos < playerPosition.Y - halfYRenderSize ||
-                yPos > playerPosition.Y + halfYRenderSize)
+                yPos < playerPosition.Y - halfYRenderSize + 1 ||
+                yPos > playerPosition.Y + halfYRenderSize - 1)
                 return;
 
-            Console.SetCursorPosition(xPos, yPos);
+            //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
+            Console.SetCursorPosition(xPos + MapXOffset, yPos);
         }
         Console.ForegroundColor = gameObject.Color;
         Console.Write(gameObject.Symbol);

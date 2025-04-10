@@ -15,7 +15,8 @@ public class Dungeon : Scene
     public override void Render()
     {
         // GameManager.Map.Print();
-        GameManager.Map.Print(RenderArea.Render9x5);
+        // GameManager.Map.Print(RenderArea.Render13x9);
+        GameManager.Map.Print(RenderArea.Render31x15);
         foreach (var gameObject in GameObjects)
         {
             gameObject.Print();

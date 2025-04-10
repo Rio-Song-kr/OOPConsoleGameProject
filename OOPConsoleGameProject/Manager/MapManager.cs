@@ -27,21 +27,27 @@ public class MapManager
 
     public void SetMapData(TileType[,] tileType)
     {
-        _mapSize = new Vector2(tileType.GetLength(1), tileType.GetLength(0));
         _mapTile = tileType;
+        _mapSize = new Vector2(tileType.GetLength(1), tileType.GetLength(0));
     }
 
-    public void Print(RenderArea renderArea = RenderArea.RenderFull)
+    public void Print(RenderArea renderArea = RenderArea.Render31x15)
     {
-        switch (renderArea)
-        {
-            case RenderArea.RenderFull:
-                _print.PrintMap(_mapTile, _mapSize);
-                break;
-            default:
-                _print.PrintLimitedSightMap(_mapTile, _mapSize, renderArea);
-                break;
-        }
+        _print.PrintLimitedSightMap(_mapTile, _mapSize, renderArea);
     }
+
+    //todo GameObject의 Print 수정 후 주석 해제
+// public void Print(RenderArea renderArea = RenderArea.RenderFull)
+// {
+//     switch (renderArea)
+//     {
+//         case RenderArea.RenderFull:
+//             _print.PrintMap(_mapTile, _mapSize);
+//             break;
+//         default:
+//             _print.PrintLimitedSightMap(_mapTile, _mapSize, renderArea);
+//             break;
+//     }
+// }
     public void ClearMap() { _print.ClearMapArea(); }
 }

@@ -16,19 +16,17 @@ public abstract class GameObject : IInteractable
         Symbol = symbol;
 
         //# 중앙 출력이 아닐 시
-        // Position = position + MapOffset;
         Position = position;
         IsCollectable = collectable;
     }
 
     public void Print()
     {
+        //todo 현재 Limited Render만 적용됨, RenderFull은 별도 처리 필요함
         if (Position.X < MapOffset.X || Position.Y < MapOffset.Y) return;
         _print.PrintObject(this);
     }
 
-    //# 중앙 출력이 아닐 시
-    // public void SetPosition(Vector2 position) { _position = position + MapOffset; }
     public void SetPosition(Vector2 position) { _position = position; }
 
     public abstract bool TryInteract(GameObject gameObject);

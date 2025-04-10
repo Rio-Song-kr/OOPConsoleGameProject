@@ -1,8 +1,8 @@
 ﻿namespace OOPConsoleGameProject;
 
-public class DungeonScene01 : Dungeon
+public class DungeonScene02 : Dungeon
 {
-    public DungeonScene01()
+    public DungeonScene02()
     {
         //todo 던전 맵 수정해야 함 - 수동 생성
         MapTile = Maze.GenerateByBacktracking(1, 1, new Vector2(33, 33));

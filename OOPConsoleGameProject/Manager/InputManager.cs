@@ -55,6 +55,7 @@ public class InputManager
                 OnUse();
                 break;
         }
+        Util.Sleep(10);
 
         return input;
     }
