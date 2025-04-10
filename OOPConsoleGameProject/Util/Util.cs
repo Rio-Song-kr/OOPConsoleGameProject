@@ -53,7 +53,6 @@ public static class Util
 
     public static Vector2 RandomCoordinates(SceneName sceneName, List<GameObject> gameObjects)
     {
-        //todo 랜덤 좌표를 생성한 후, 해당 위치가 벽이 아닌지 체크하고 반환
         Random rand = new Random();
         Vector2 position = Vector2.Unit;
 
@@ -69,7 +68,6 @@ public static class Util
 
     private static bool IsWallOrFieldObject(Vector2 position, List<GameObject> gameObjects)
     {
-        //todo WallCheck와 Object 체크
         if (GameManager.Map.MapTile[position.Y, position.X] == TileType.Wall) return true;
 
         // Object 체크
