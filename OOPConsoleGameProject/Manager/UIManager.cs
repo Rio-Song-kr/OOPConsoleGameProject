@@ -288,7 +288,7 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
             {
                 int xPos = x + GameManager.GamePlayer.Position.X;
                 int yPos = y + GameManager.GamePlayer.Position.Y;
-                if (xPos < 0 || yPos < 0)
+                if (xPos < 0 || yPos < 0 || xPos >= mapTile.GetLength(1) || yPos >= mapTile.GetLength(0))
                 {
                     Util.PrintConsole(' ', backgroundColor: ConsoleColor.DarkGray, textColor: ConsoleColor.DarkGreen);
                     continue;

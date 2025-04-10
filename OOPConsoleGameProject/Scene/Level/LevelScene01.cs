@@ -8,7 +8,7 @@ public class LevelScene01 : Level
 
         //# 문 추가
         GameObjects = new List<GameObject>();
-        GameObjects.Add(new DoorPlace(SceneName.Level02, new Vector2(6, 6)));
+        GameObjects.Add(new DoorPlace(SceneName.Level02, new Vector2(5, 1)));
 
         //# 열쇠 추가
         Item key = GameManager.ObjectPools.GetItem("Key");
