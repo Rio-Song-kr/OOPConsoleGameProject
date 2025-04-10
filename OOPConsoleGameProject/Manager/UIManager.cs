@@ -1,6 +1,6 @@
 ﻿namespace OOPConsoleGameProject;
 
-public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
+public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObjectPrint
 {
     private static UIManager _instance;
     private RectanglePosition _mapPosition;
@@ -10,6 +10,9 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
     public Vector2 MapStartOffset { get => _mapStartOffset; }
     private Vector2 _itemOffset;
     private Vector2 _logOffset;
+    private Vector2 _mapCenter;
+    private RenderArea _renderArea;
+    private Vector2 _moveOffset;
     // private Vector2 _playerCoordinate;
 
     private UIManager()
@@ -19,6 +22,14 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
             StartPosition = new Vector2(0, 0),
             EndPosition = new Vector2(65, 19)
         };
+        _mapStartOffset = new Vector2(
+            _mapPosition.StartPosition.X + 1,
+            _mapPosition.StartPosition.Y + 1
+        );
+        _mapCenter = new Vector2(
+            (_mapPosition.EndPosition.X - _mapPosition.StartPosition.X) / 2,
+            (_mapPosition.EndPosition.Y - _mapPosition.StartPosition.Y) / 2
+        );
         _inventoryPosition = new RectanglePosition()
         {
             StartPosition = new Vector2(66, 0),
@@ -33,14 +44,11 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
             (_inventoryPosition.StartPosition.X + _inventoryPosition.EndPosition.X) / 2 - 1,
             13
         );
-        _mapStartOffset = new Vector2(
-            _mapPosition.StartPosition.X + 1,
-            _mapPosition.StartPosition.Y + 1
-        );
         _logOffset = new Vector2(
             _logPosition.StartPosition.X + 2,
             _logPosition.StartPosition.Y + 2
         );
+        _moveOffset = new Vector2(0, 0);
 
         Console.SetBufferSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
     }
@@ -253,6 +261,51 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
         }
     }
 
+    public void PrintLimitedSightMap(TileType[,] mapTile, Vector2 mapSize, RenderArea renderArea)
+    {
+        _renderArea = renderArea;
+        int renderSize = renderArea switch
+        {
+            RenderArea.Render7x3 => 7,
+            RenderArea.Render9x5 => 9,
+            RenderArea.Render11x7 => 11,
+            RenderArea.Render13x9 => 13,
+            RenderArea.Render15x11 => 15,
+            RenderArea.Redner17x13 => 17,
+        };
+
+        int xPosition = _mapCenter.X;
+        int yPosition = _mapCenter.Y;
+
+        int halfXRenderSize = renderSize / 2;
+        int halfYRenderSize = (renderSize - 4) / 2;
+        for (int y = -halfYRenderSize - 1; y <= halfYRenderSize + 1; y++)
+        {
+            Console.SetCursorPosition(xPosition - renderSize, yPosition + y);
+            for (int x = -halfXRenderSize - 1; x <= halfXRenderSize + 1; x++)
+            {
+                int xPos = x + GameManager.GamePlayer.Position.X;
+                int yPos = y + GameManager.GamePlayer.Position.Y;
+                if (xPos < 0 || yPos < 0)
+                {
+                    Util.PrintConsole(' ', backgroundColor: ConsoleColor.DarkGray, textColor: ConsoleColor.DarkGreen);
+                    continue;
+                }
+                if (x == -halfXRenderSize - 1 || x == halfXRenderSize + 1 ||
+                    y == -halfYRenderSize - 1 || y == halfYRenderSize + 1)
+                {
+                    Util.PrintConsole(' ', backgroundColor: ConsoleColor.DarkGray, textColor: ConsoleColor.DarkGreen);
+                    continue;
+                }
+
+                if (mapTile[yPos, xPos] == TileType.Wall)
+                    Util.PrintConsole(Maze.Wall, backgroundColor: ConsoleColor.White, textColor: ConsoleColor.DarkRed);
+                else
+                    Util.PrintConsole(' ', backgroundColor: ConsoleColor.Black, textColor: ConsoleColor.DarkBlue);
+            }
+        }
+    }
+
     public void ClearMapArea()
     {
         int startXPosition = _mapPosition.StartPosition.X + _mapStartOffset.X;
@@ -306,5 +359,50 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint
 
         ClearMapArea();
         PrintTextAtCenter(descriptions, false);
+    }
+
+    //! IGameObjectPrint
+    public void PrintObject(GameObject gameObject)
+    {
+        //todo Center에 해당하는 Offset 적용 필요함
+        //todo 문제는, Player는 항상 Center에 위치해야 함
+        //todo Player 이외의 물체는 offset을 적용한 값으로 출력해야 함
+        int renderSize = _renderArea switch
+        {
+            RenderArea.Render7x3 => 7,
+            RenderArea.Render9x5 => 9,
+            RenderArea.Render11x7 => 11,
+            RenderArea.Render13x9 => 13,
+            RenderArea.Render15x11 => 15,
+            RenderArea.Redner17x13 => 17,
+        };
+
+        //# 나누기 오차 보정으로 + 1
+        int halfXRenderSize = renderSize / 2 + 1;
+        int halfYRenderSize = (renderSize - 4) / 2;
+
+        if (gameObject is Player)
+            //# Player는 Center에 고정
+            Console.SetCursorPosition(_mapCenter.X - halfXRenderSize + 1, _mapCenter.Y);
+        else
+        {
+            int xPos = gameObject.Position.X + _mapCenter.X - halfXRenderSize;
+            int yPos = gameObject.Position.Y + _mapCenter.Y - halfYRenderSize + 1;
+
+            if (xPos < 0 || xPos >= _mapPosition.EndPosition.X || yPos < 0 || yPos > _mapPosition.EndPosition.Y)
+                return;
+
+            if (xPos < GameManager.GamePlayer.Position.X + _mapCenter.X - halfXRenderSize + 1 ||
+                xPos >= GameManager.GamePlayer.Position.X + _mapCenter.X + halfXRenderSize - 1 ||
+                yPos < GameManager.GamePlayer.Position.Y + _mapCenter.Y - halfYRenderSize ||
+                yPos >= GameManager.GamePlayer.Position.Y + _mapCenter.Y + halfYRenderSize)
+                return;
+
+            // Console.SetCursorPosition(xPos - _moveOffset.X, yPos - _moveOffset.Y);
+            Console.SetCursorPosition(xPos, yPos);
+        }
+        Console.ForegroundColor = gameObject.Color;
+        Console.Write(gameObject.Symbol);
+        Console.ResetColor();
     }
 }

@@ -4,7 +4,10 @@ public class Player : GameObject
 {
     static Player _instance;
 
-    private Player(Vector2 position) : base(ConsoleColor.Magenta, 'P', position, false) { }
+    private Player(Vector2 position) : base(ConsoleColor.Magenta, 'P', position, false)
+    {
+        MovedDirection = new Vector2(0, 0);
+    }
     public Vector2 MovedDirection { get; private set; }
 
     public static Player GetInstance()
@@ -30,7 +33,8 @@ public class Player : GameObject
 
     private bool IsMovable(Vector2 position)
     {
-        if (GameManager.Map.MapTile[position.Y - Offset.Y, position.X - Offset.X] == TileType.Wall) return false;
+        // if (GameManager.Map.MapTile[position.Y - MapOffset.Y, position.X - MapOffset.X] == TileType.Wall) return false;
+        if (GameManager.Map.MapTile[position.Y, position.X] == TileType.Wall) return false;
 
         return true;
     }

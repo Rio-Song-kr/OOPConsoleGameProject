@@ -12,6 +12,16 @@ public static class Util
         Console.ResetColor();
     }
 
+    public static void PrintConsole(char character, ConsoleColor textColor = ConsoleColor.White, int delay = 0,
+        ConsoleColor backgroundColor = ConsoleColor.Black)
+    {
+        Console.BackgroundColor = backgroundColor;
+        Console.ForegroundColor = textColor;
+        Console.Write(character);
+        Thread.Sleep(delay);
+        Console.ResetColor();
+    }
+
     public static void PrintCharacterSequentially(string message, ConsoleColor textColor = ConsoleColor.White,
         int delay = 0, ConsoleColor backgroundColor = ConsoleColor.Black)
     {

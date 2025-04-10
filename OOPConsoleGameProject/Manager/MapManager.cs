@@ -31,6 +31,17 @@ public class MapManager
         _mapTile = tileType;
     }
 
-    public void Print() { _print.PrintMap(_mapTile, _mapSize); }
+    public void Print(RenderArea renderArea = RenderArea.RenderFull)
+    {
+        switch (renderArea)
+        {
+            case RenderArea.RenderFull:
+                _print.PrintMap(_mapTile, _mapSize);
+                break;
+            default:
+                _print.PrintLimitedSightMap(_mapTile, _mapSize, renderArea);
+                break;
+        }
+    }
     public void ClearMap() { _print.ClearMapArea(); }
 }

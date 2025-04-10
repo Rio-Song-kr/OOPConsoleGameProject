@@ -34,7 +34,7 @@ public class Rock : FieldObject
 
     private bool IsMovable(Vector2 position)
     {
-        if (GameManager.Map.MapTile[position.Y - Offset.Y, position.X - Offset.Y] == TileType.Wall) return false;
+        if (GameManager.Map.MapTile[position.Y - MapOffset.Y, position.X - MapOffset.Y] == TileType.Wall) return false;
 
         return true;
     }

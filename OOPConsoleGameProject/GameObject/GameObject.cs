@@ -7,27 +7,29 @@ public abstract class GameObject : IInteractable
     private Vector2 _position;
     public Vector2 Position { get => _position; protected set => _position = value; }
     public bool IsCollectable { get; }
-    protected static Vector2 Offset = GameManager.UI.MapStartOffset;
+    protected static Vector2 MapOffset = GameManager.UI.MapStartOffset;
+    private IGameObjectPrint _print = GameManager.UI;
 
     public GameObject(ConsoleColor color, char symbol, Vector2 position, bool collectable)
     {
         Color = color;
         Symbol = symbol;
-        Position = position + Offset;
+
+        //# 중앙 출력이 아닐 시
+        // Position = position + MapOffset;
+        Position = position;
         IsCollectable = collectable;
     }
 
-    //todo UIManager가 추가되면 UIManager를 이용해서 출력해야 함
     public void Print()
     {
-        if (Position.X < Offset.X || Position.Y < Offset.Y) return;
-        Console.SetCursorPosition(Position.X, Position.Y);
-        Console.ForegroundColor = Color;
-        Console.Write(Symbol);
-        Console.ResetColor();
+        if (Position.X < MapOffset.X || Position.Y < MapOffset.Y) return;
+        _print.PrintObject(this);
     }
 
-    public void SetPosition(Vector2 position) { _position = position + Offset; }
+    //# 중앙 출력이 아닐 시
+    // public void SetPosition(Vector2 position) { _position = position + MapOffset; }
+    public void SetPosition(Vector2 position) { _position = position; }
 
     public abstract bool TryInteract(GameObject gameObject);
 }

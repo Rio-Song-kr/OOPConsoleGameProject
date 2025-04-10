@@ -9,7 +9,8 @@ public class Level : Scene
     {
         if (!GameManager.Inventory.PrintItemInfo)
         {
-            GameManager.Map.Print();
+            // GameManager.Map.Print();
+            GameManager.Map.Print(RenderArea.Render9x5);
             foreach (var gameObject in GameObjects)
             {
                 gameObject.Print();

@@ -12,7 +12,7 @@ public class LevelScene01 : Level
 
         //# 열쇠 추가
         Item key = GameManager.ObjectPools.GetItem("Key");
-        key.SetPosition(new Vector2(1, 4));
+        key.SetPosition(new Vector2(3, 1));
         GameObjects.Add(key);
     }
 
@@ -23,13 +23,14 @@ public class LevelScene01 : Level
 
         if (IsFirstLoad)
         {
-            GameManager.Scene.PrintText(new string[]
-            {
-                "아무것도 보이지 않아",
-                "무슨 일이 일어난 걸까?",
-                "조용한 공기 속, 희미한 빛 한점만...",
-                "나를 둘러싼 벽들은 왜 이렇게 낯선걸까?"
-            }, true, 100);
+            //todo Render 테스트 끝나고 다시 주석 해제
+            // GameManager.Scene.PrintText(new string[]
+            // {
+            //     "아무것도 보이지 않아",
+            //     "무슨 일이 일어난 걸까?",
+            //     "조용한 공기 속, 희미한 빛 한점만...",
+            //     "나를 둘러싼 벽들은 왜 이렇게 낯선걸까?"
+            // }, true, 100);
             Util.Sleep(1000);
             GameManager.Map.ClearMap();
         }
