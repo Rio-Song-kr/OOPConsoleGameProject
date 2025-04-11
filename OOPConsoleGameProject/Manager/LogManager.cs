@@ -5,14 +5,14 @@ public class LogManager
     private static LogManager _instance;
     private ILogPrint _log;
     private const int MaxLogSize = 4;
-    private List<string> _logMessages;
-    private List<ConsoleColor> _colors;
+    private Queue<string> _logMessages;
+    private Queue<ConsoleColor> _colors;
 
     //# 의존성 역전 구현
     private LogManager(ILogPrint log)
     {
-        _logMessages = new List<string>();
-        _colors = new List<ConsoleColor>();
+        _logMessages = new Queue<string>();
+        _colors = new Queue<ConsoleColor>();
         _log = log;
     }
 
@@ -29,11 +29,11 @@ public class LogManager
     {
         if (_logMessages.Count >= MaxLogSize)
         {
-            _logMessages.RemoveAt(0);
-            _colors.RemoveAt(0);
+            _logMessages.Dequeue();
+            _colors.Dequeue();
         }
-        _logMessages.Add(message);
-        _colors.Add(color);
+        _logMessages.Enqueue(message);
+        _colors.Enqueue(color);
         PrintLog();
     }
 

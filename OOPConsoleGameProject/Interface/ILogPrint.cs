@@ -2,5 +2,5 @@
 
 public interface ILogPrint
 {
-    void Log(List<string> messages, List<ConsoleColor> colors);
+    void Log(Queue<string> messages, Queue<ConsoleColor> colors);
 }

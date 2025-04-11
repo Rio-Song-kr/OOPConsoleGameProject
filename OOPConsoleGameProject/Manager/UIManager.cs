@@ -326,14 +326,14 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
     }
 
     //! ILogPrint
-    public void Log(List<string> messages, List<ConsoleColor> color)
+    public void Log(Queue<string> messages, Queue<ConsoleColor> colors)
     {
         for (int i = 0; i < messages.Count; i++)
         {
-            int length = _logPosition.EndPosition.X - 1 - _logOffset.X - Util.GetMessageWidth(messages[i]);
+            int length = _logPosition.EndPosition.X - 1 - _logOffset.X - Util.GetMessageWidth(messages.ElementAt(i));
             Console.SetCursorPosition(_logOffset.X, _logOffset.Y + i);
-            string message = $"{messages[i]}{new string(' ', Math.Max(0, length))}";
-            Util.PrintConsole(message, textColor: color[i]);
+            string message = $"{messages.ElementAt(i)}{new string(' ', Math.Max(0, length))}";
+            Util.PrintConsole(message, textColor: colors.ElementAt(i));
         }
     }
 
