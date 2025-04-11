@@ -367,3 +367,4 @@ FodyWeavers.xsd
 *.drawio
 puml/
 dotnet-tools.json
+*.cd
