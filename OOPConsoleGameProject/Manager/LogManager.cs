@@ -8,7 +8,6 @@ public class LogManager
     private Queue<string> _logMessages;
     private Queue<ConsoleColor> _colors;
 
-    //# 의존성 역전 구현
     private LogManager(ILogPrint log)
     {
         _logMessages = new Queue<string>();
