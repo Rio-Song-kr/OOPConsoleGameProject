@@ -5,4 +5,4 @@
 ## 데모 플레이
 ![Image](https://github.com/user-attachments/assets/9797a609-2d17-40f9-97fb-771c3838ee12)
 ## 구현 상황
-![Image](https://personal.riosong.kro.kr/blog/content/images/size/w1000/2025/04/image-67.png)
+![Image](https://github.com/user-attachments/assets/1a95df09-dbe9-4bf7-9011-6c93cd9062b3)
