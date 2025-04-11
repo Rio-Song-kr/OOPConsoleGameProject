@@ -15,7 +15,7 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
     private Vector2 _mapCenter;
     private RenderArea _renderArea;
     private Vector2 _moveOffset;
-    private int MapXOffset = 10;
+    private int _mapXOffset = 10;
     // private Vector2 _playerCoordinate;
 
     private UIManager()
@@ -277,7 +277,7 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
             RenderArea.Render27x13 => (27, 13),
             RenderArea.Render31x15 => (31, 15),
         };
-        MapXOffset = renderXSize / 2;
+        _mapXOffset = renderXSize / 2;
 
         int xPosition = _mapCenter.X;
         int yPosition = _mapCenter.Y;
@@ -287,7 +287,7 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
         for (int y = -halfYRenderSize - 1; y <= halfYRenderSize + 1; y++)
         {
             //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
-            Console.SetCursorPosition(xPosition - renderXSize + MapXOffset, yPosition + y);
+            Console.SetCursorPosition(xPosition - renderXSize + _mapXOffset, yPosition + y);
             for (int x = -halfXRenderSize - 1; x <= halfXRenderSize + 1; x++)
             {
                 int xPos = x + GameManager.GamePlayer.Position.X;
@@ -389,7 +389,7 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
         {
             //# Player는 Center에 고정
             //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
-            Console.SetCursorPosition(_mapCenter.X - halfXRenderSize + 1 + MapXOffset, _mapCenter.Y);
+            Console.SetCursorPosition(_mapCenter.X - halfXRenderSize + 1 + _mapXOffset, _mapCenter.Y);
         }
         else
         {
@@ -411,7 +411,7 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
                 return;
 
             //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
-            Console.SetCursorPosition(xPos + MapXOffset, yPos);
+            Console.SetCursorPosition(xPos + _mapXOffset, yPos);
         }
         Console.ForegroundColor = gameObject.Color;
         Console.Write(gameObject.Symbol);

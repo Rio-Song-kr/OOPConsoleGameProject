@@ -3,12 +3,12 @@ namespace OOPConsoleGameProject;
 public class Player : GameObject
 {
     static Player _instance;
+    public Vector2 MovedDirection { get; private set; }
 
     private Player(Vector2 position) : base(ConsoleColor.Magenta, 'P', position, false)
     {
         MovedDirection = new Vector2(0, 0);
     }
-    public Vector2 MovedDirection { get; private set; }
 
     public static Player GetInstance()
     {

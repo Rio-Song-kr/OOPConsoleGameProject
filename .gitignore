@@ -363,3 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 .idea/
+
+*.drawio
+puml/
+dotnet-tools.json

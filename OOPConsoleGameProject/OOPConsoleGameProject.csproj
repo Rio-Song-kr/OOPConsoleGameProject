@@ -7,4 +7,12 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <Folder Include="puml\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="PlantUmlClassDiagramGenerator.Attributes" Version="1.3.0.1"/>
+    </ItemGroup>
+
 </Project>
