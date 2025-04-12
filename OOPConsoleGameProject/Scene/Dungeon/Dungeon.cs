@@ -5,6 +5,7 @@ public class Dungeon : Scene
     protected TileType[,] MapTile;
     protected List<GameObject> GameObjects;
     protected List<Goal> Goals;
+    protected RenderArea Area;
 
     public Dungeon()
     {
@@ -14,9 +15,7 @@ public class Dungeon : Scene
 
     public override void Render()
     {
-        // GameManager.Map.Print();
-        // GameManager.Map.Print(RenderArea.Render13x9);
-        GameManager.Map.Print(RenderArea.Render31x15);
+        GameManager.Map.Print(Area);
         foreach (var gameObject in GameObjects)
         {
             gameObject.Print();

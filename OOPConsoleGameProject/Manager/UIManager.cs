@@ -243,26 +243,27 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
     */
 
     //! IMapPrint
-    public void PrintMap(TileType[,] mapTile, Vector2 mapSize)
-    {
-        int xPosition = _mapPosition.StartPosition.X + _mapStartOffset.X;
-        int yPosition = _mapPosition.StartPosition.Y + _mapStartOffset.Y;
-
-        for (int y = 0; y < mapSize.Y; y++)
-        {
-            if (y >= _mapPosition.EndPosition.Y - 1)
-                break;
-            Console.SetCursorPosition(xPosition, yPosition + y);
-            for (int x = 0; x < mapSize.X; x++)
-            {
-                if (x >= _mapPosition.EndPosition.X - 1)
-                    break;
-
-                if (mapTile[y, x] == TileType.Wall) Console.Write(Maze.Wall);
-                else Console.Write(' ');
-            }
-        }
-    }
+    //# 던전의 경우, PrintMap을 사용
+    // public void PrintMap(TileType[,] mapTile, Vector2 mapSize)
+    // {
+    //     int xPosition = _mapPosition.StartPosition.X + _mapStartOffset.X;
+    //     int yPosition = _mapPosition.StartPosition.Y + _mapStartOffset.Y;
+    //
+    //     for (int y = 0; y < mapSize.Y; y++)
+    //     {
+    //         if (y >= _mapPosition.EndPosition.Y - 1)
+    //             break;
+    //         Console.SetCursorPosition(xPosition, yPosition + y);
+    //         for (int x = 0; x < mapSize.X; x++)
+    //         {
+    //             if (x >= _mapPosition.EndPosition.X - 1)
+    //                 break;
+    //
+    //             if (mapTile[y, x] == TileType.Wall) Console.Write(Maze.Wall);
+    //             else Console.Write(' ');
+    //         }
+    //     }
+    // }
 
     public void PrintLimitedSightMap(TileType[,] mapTile, Vector2 mapSize, RenderArea renderArea)
     {
@@ -400,40 +401,36 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
 
         _moveOffset = GameManager.GamePlayer.Position - Vector2.Unit;
 
+        //todo 현재 PassedRoad가 Item 위에 출력되는 문제가 있음
         if (gameObject is Player player)
         {
             if (GameManager.GamePlayer.IsUseNavigation)
             {
                 foreach (var position in player.PassedRoad)
                 {
-                    // int xPos = _mapCenter.X - halfRenderSize.X + 1 + _mapXOffset + position.X - player.Position.X;
-                    // int yPos = _mapCenter.Y + position.Y - player.Position.Y;
-                    int xPos = position.X + _mapCenter.X - halfRenderSize.X - _moveOffset.X;
-                    int yPos = position.Y + _mapCenter.Y - 1 - _moveOffset.Y;
-                    if (!IsInRenderRange(halfRenderSize, xPos, yPos)) continue;
+                    if (!IsInRenderRange(position, halfRenderSize, out int xPos, out int yPos)) continue;
 
                     Console.SetCursorPosition(xPos + _mapXOffset, yPos);
                     Print(ConsoleColor.DarkBlue, 'x');
                 }
             }
-            //# Player는 Center에 고정
             //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
             Console.SetCursorPosition(_mapCenter.X - halfRenderSize.X + 1 + _mapXOffset, _mapCenter.Y);
         }
         else
         {
-            int xPos = gameObject.Position.X + _mapCenter.X - halfRenderSize.X - _moveOffset.X;
-            int yPos = gameObject.Position.Y + _mapCenter.Y - 1 - _moveOffset.Y;
-
-            if (!IsInRenderRange(halfRenderSize, xPos, yPos)) return;
+            if (!IsInRenderRange(gameObject.Position, halfRenderSize, out int xPos, out int yPos)) return;
 
             //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
             Console.SetCursorPosition(xPos + _mapXOffset, yPos);
         }
         Print(gameObject.Color, gameObject.Symbol);
     }
-    private bool IsInRenderRange(Vector2 halfRenderSize, int xPos, int yPos)
+
+    private bool IsInRenderRange(Vector2 position, Vector2 halfRenderSize, out int xPos, out int yPos)
     {
+        xPos = position.X + _mapCenter.X - halfRenderSize.X - _moveOffset.X;
+        yPos = position.Y + _mapCenter.Y - 1 - _moveOffset.Y;
         Vector2 playerPosition = new Vector2(_mapCenter.X - halfRenderSize.X + 1, _mapCenter.Y);
 
         if (xPos < 0 || xPos >= _mapPosition.EndPosition.X || yPos < 0 || yPos > _mapPosition.EndPosition.Y)
@@ -447,6 +444,7 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
             return false;
         return true;
     }
+
     private static void Print(ConsoleColor color, char symbol)
     {
         Console.ForegroundColor = color;

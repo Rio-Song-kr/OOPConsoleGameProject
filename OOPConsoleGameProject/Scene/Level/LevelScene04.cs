@@ -2,7 +2,7 @@
 
 public class LevelScene04 : Level
 {
-    // private DungeonPlace _dungeon;
+    private DungeonPlace _dungeon;
 
     public LevelScene04()
     {
@@ -22,34 +22,24 @@ public class LevelScene04 : Level
     {
         GameManager.Map.SetMapData(MapTile);
         GameManager.UI.ClearMapArea();
+        Vector2 position;
 
-        GameManager.Inventory.RemoveAll();
+        if (GameManager.Scene.PreviousScene != SceneName.Dungeon02)
+        {
+            GameManager.Inventory.RemoveAll();
+            GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
 
-        GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
+            //# 레벨2는 던전 -> 열쇠 획득 -> 탈출
+            //# 던전 추가
+            position = Util.RandomCoordinates(SceneName.Level04, GameObjects);
+            _dungeon = new DungeonPlace(SceneName.Dungeon02, new Vector2(position.X, position.Y));
+            GameObjects.Add(_dungeon);
+        }
+        else
+        {
+            GameManager.GamePlayer.SetPosition(new Vector2(_dungeon.Position.X, _dungeon.Position.Y));
+            GameObjects.Remove(_dungeon);
+        }
         Area = GameManager.Instance.Area[SceneName.Level04];
-
-        //# 열쇠 추가
-        Item key = GameManager.ObjectPools.GetItem("Key");
-        Vector2 position = Util.RandomCoordinates(SceneName.Level04, GameObjects);
-        key.SetPosition(new Vector2(position.X, position.Y));
-        GameObjects.Add(key);
-
-        //# 편지 추가
-        Item letter = GameManager.ObjectPools.GetItem("Letter");
-        position = Util.RandomCoordinates(SceneName.Level01, GameObjects);
-        letter.SetPosition(new Vector2(position.X, position.Y));
-        GameObjects.Add(letter);
-
-        //# 뮤직박스 추가 - Interact 테스트용
-        Item musicBox = GameManager.ObjectPools.GetItem("Music Box");
-        position = Util.RandomCoordinates(SceneName.Level01, GameObjects);
-        musicBox.SetPosition(new Vector2(position.X, position.Y));
-        GameObjects.Add(musicBox);
-
-        //# 내비게이션 추가
-        Item navigation = GameManager.ObjectPools.GetItem("Navigation");
-        position = Util.RandomCoordinates(SceneName.Level01, GameObjects);
-        navigation.SetPosition(new Vector2(position.X, position.Y));
-        GameObjects.Add(navigation);
     }
 }

@@ -26,8 +26,8 @@ public class InputManager
         {
             if (input == ConsoleKey.U)
             {
-                OnUse();
                 GameManager.Log.Log($"{GameManager.Inventory.GetSelectedItem()}을/를 사용합니다.", ConsoleColor.Yellow);
+                OnUse();
             }
             OnSelect(-1);
             GameManager.Map.ClearMap();

@@ -4,8 +4,26 @@ public class DungeonScene01 : Dungeon
 {
     public DungeonScene01()
     {
-        //todo 던전 맵 수정해야 함 - 수동 생성
-        MapTile = Maze.GenerateByBacktracking(1, 1, new Vector2(33, 33));
+        char[,] map = new char[,]
+        {
+            { '#', '#', '#', '#', '#', '#', '#', '#' },
+            { '#', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
+            { '#', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
+            { '#', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
+            { '#', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
+            { '#', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
+            { '#', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
+            { '#', '#', '#', '#', '#', '#', '#', '#' },
+        };
+        MapTile = new TileType[map.GetLength(0), map.GetLength(1)];
+        for (int y = 0; y < map.GetLength(0); y++)
+        {
+            for (int x = 0; x < map.GetLength(1); x++)
+            {
+                if (map[y, x] == '#') MapTile[y, x] = TileType.Wall;
+                else MapTile[y, x] = TileType.Ground;
+            }
+        }
 
         //# Rock 추가 - 테스트용
         FieldObject rock0 = GameManager.ObjectPools.GetFieldObject("Rock", 0);
@@ -31,8 +49,10 @@ public class DungeonScene01 : Dungeon
 
     public override void OnEnter()
     {
+        GameManager.UI.ClearMapArea();
         GameManager.Map.SetMapData(MapTile);
         GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
+        Area = GameManager.Instance.Area[SceneName.Dungeon01];
     }
 
     public override void OnExit() { }

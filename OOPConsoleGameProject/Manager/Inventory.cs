@@ -67,9 +67,14 @@ public class Inventory
     {
         if (currentItemIndex == -1) return;
 
-        if (_items[currentItemIndex] is IUsable usableItem && _items[currentItemIndex] is Navigation)
+        if (_items[currentItemIndex] is IUsable usableItem)
         {
+            if (_items[currentItemIndex] is not Navigation)
+                return;
             usableItem.Use();
+            //# 인벤토리에서는 제거함
+            _ui.PrintEmptyItem(currentItemIndex);
+            _items.RemoveAt(currentItemIndex);
         }
     }
 

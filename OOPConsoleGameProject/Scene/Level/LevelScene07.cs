@@ -2,8 +2,6 @@
 
 public class LevelScene07 : Level
 {
-    // private DungeonPlace _dungeon;
-
     public LevelScene07()
     {
         MapTile = Maze.GenerateByBacktracking(1, 1, GameManager.Instance.MazeSize[SceneName.Level07]);
@@ -28,27 +26,22 @@ public class LevelScene07 : Level
         GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
         Area = GameManager.Instance.Area[SceneName.Level07];
 
-        //# 열쇠 추가
-        Item key = GameManager.ObjectPools.GetItem("Key");
-        Vector2 position = Util.RandomCoordinates(SceneName.Level07, GameObjects);
-        key.SetPosition(new Vector2(position.X, position.Y));
-        GameObjects.Add(key);
-
-        //# 편지 추가
-        Item letter = GameManager.ObjectPools.GetItem("Letter");
-        position = Util.RandomCoordinates(SceneName.Level01, GameObjects);
-        letter.SetPosition(new Vector2(position.X, position.Y));
-        GameObjects.Add(letter);
+        //# 레벨7은 뮤직박스 힌트에 대한 문제를 풀어서 상자로부터 열쇠 획득 -> 탈출
+        // //# 열쇠 추가
+        // Item key = GameManager.ObjectPools.GetItem("Key");
+        // Vector2 position = Util.RandomCoordinates(SceneName.Level07, GameObjects);
+        // key.SetPosition(new Vector2(position.X, position.Y));
+        // GameObjects.Add(key);
 
         //# 뮤직박스 추가 - Interact 테스트용
         Item musicBox = GameManager.ObjectPools.GetItem("Music Box");
-        position = Util.RandomCoordinates(SceneName.Level01, GameObjects);
+        Vector2 position = Util.RandomCoordinates(SceneName.Level07, GameObjects);
         musicBox.SetPosition(new Vector2(position.X, position.Y));
         GameObjects.Add(musicBox);
 
         //# 내비게이션 추가
         Item navigation = GameManager.ObjectPools.GetItem("Navigation");
-        position = Util.RandomCoordinates(SceneName.Level01, GameObjects);
+        position = Util.RandomCoordinates(SceneName.Level07, GameObjects);
         navigation.SetPosition(new Vector2(position.X, position.Y));
         GameObjects.Add(navigation);
     }
