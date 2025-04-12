@@ -36,18 +36,5 @@ public class MapManager
         _print.PrintLimitedSightMap(_mapTile, _mapSize, renderArea);
     }
 
-    //todo GameObject의 Print 수정 후 주석 해제
-// public void Print(RenderArea renderArea = RenderArea.RenderFull)
-// {
-//     switch (renderArea)
-//     {
-//         case RenderArea.RenderFull:
-//             _print.PrintMap(_mapTile, _mapSize);
-//             break;
-//         default:
-//             _print.PrintLimitedSightMap(_mapTile, _mapSize, renderArea);
-//             break;
-//     }
-// }
     public void ClearMap() { _print.ClearMapArea(); }
 }
