@@ -50,6 +50,7 @@ public class DungeonScene02 : Dungeon
 
     public override void OnEnter()
     {
+        GameManager.UI.ClearMapArea();
         GameManager.Map.SetMapData(MapTile);
         GameManager.GamePlayer.SetPosition(new Vector2(1, 1));
     }

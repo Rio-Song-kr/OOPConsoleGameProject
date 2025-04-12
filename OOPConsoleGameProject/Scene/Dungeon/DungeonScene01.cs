@@ -43,6 +43,7 @@ public class DungeonScene01 : Dungeon
         goal1.SetPosition(new Vector2(3, 1));
         GameObjects.Add(goal1);
 
+
         Goals.Add(goal0 as Goal);
         Goals.Add(goal1 as Goal);
     }
@@ -55,5 +56,11 @@ public class DungeonScene01 : Dungeon
         Area = GameManager.Instance.Area[SceneName.Dungeon01];
     }
 
-    public override void OnExit() { }
+    public override void OnExit()
+    {
+        foreach (var gameObject in GameObjects)
+        {
+            gameObject.SetPosition(new Vector2(-1, -1));
+        }
+    }
 }

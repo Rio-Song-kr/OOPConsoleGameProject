@@ -2,7 +2,7 @@
 
 namespace OOPConsoleGameProject;
 
-public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObjectPrint
+public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObjectPrint, IPassedRoadPrint
 {
     private static UIManager _instance;
     private RectanglePosition _mapPosition;
@@ -265,10 +265,9 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
     //     }
     // }
 
-    public void PrintLimitedSightMap(TileType[,] mapTile, Vector2 mapSize, RenderArea renderArea)
+    private void GetRenderSize(out int renderXSize, out int renderYSize, out Vector2 halfRenderSize)
     {
-        _renderArea = renderArea;
-        (int renderXSize, int renderYSize) = _renderArea switch
+        (renderXSize, renderYSize) = _renderArea switch
         {
             RenderArea.Render7x3 => (7, 3),
             RenderArea.Render11x5 => (11, 5),
@@ -278,18 +277,28 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
             RenderArea.Render27x13 => (27, 13),
             RenderArea.Render31x15 => (31, 15),
         };
+
+        //# 나누기 오차 보정으로 + 1
+        halfRenderSize = new Vector2(
+            renderXSize / 2,
+            renderYSize / 2
+        );
+    }
+
+    public void PrintLimitedSightMap(TileType[,] mapTile, Vector2 mapSize, RenderArea renderArea)
+    {
+        _renderArea = renderArea;
+        GetRenderSize(out int renderXSize, out int renderYSize, out Vector2 halfRenderSize);
         _mapXOffset = renderXSize / 2;
 
         int xPosition = _mapCenter.X;
         int yPosition = _mapCenter.Y;
 
-        int halfXRenderSize = renderXSize / 2;
-        int halfYRenderSize = renderYSize / 2;
-        for (int y = -halfYRenderSize - 1; y <= halfYRenderSize + 1; y++)
+        for (int y = -halfRenderSize.Y - 1; y <= halfRenderSize.Y + 1; y++)
         {
             //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
             Console.SetCursorPosition(xPosition - renderXSize + _mapXOffset, yPosition + y);
-            for (int x = -halfXRenderSize - 1; x <= halfXRenderSize + 1; x++)
+            for (int x = -halfRenderSize.X - 1; x <= halfRenderSize.X + 1; x++)
             {
                 int xPos = x + GameManager.GamePlayer.Position.X;
                 int yPos = y + GameManager.GamePlayer.Position.Y;
@@ -298,8 +307,8 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
                     Util.PrintConsole(' ', backgroundColor: ConsoleColor.DarkGray, textColor: ConsoleColor.DarkGreen);
                     continue;
                 }
-                if (x == -halfXRenderSize - 1 || x == halfXRenderSize + 1 ||
-                    y == -halfYRenderSize - 1 || y == halfYRenderSize + 1)
+                if (x == -halfRenderSize.X - 1 || x == halfRenderSize.X + 1 ||
+                    y == -halfRenderSize.Y - 1 || y == halfRenderSize.Y + 1)
                 {
                     Util.PrintConsole(' ', backgroundColor: ConsoleColor.DarkGray, textColor: ConsoleColor.DarkGreen);
                     continue;
@@ -382,38 +391,14 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
     //! IGameObjectPrint
     public void PrintObject(GameObject gameObject)
     {
-        (int renderXSize, int renderYSize) = _renderArea switch
-        {
-            RenderArea.Render7x3 => (7, 3),
-            RenderArea.Render11x5 => (11, 5),
-            RenderArea.Render15x7 => (15, 7),
-            RenderArea.Render19x9 => (19, 9),
-            RenderArea.Render23x11 => (23, 11),
-            RenderArea.Render27x13 => (27, 13),
-            RenderArea.Render31x15 => (31, 15),
-        };
-
+        GetRenderSize(out int renderXSize, out int renderYSize, out Vector2 halfRenderSize);
         //# 나누기 오차 보정으로 + 1
-        Vector2 halfRenderSize = new Vector2(
-            renderXSize / 2 + 1,
-            renderYSize / 2
-        );
+        halfRenderSize.X += 1;
 
         _moveOffset = GameManager.GamePlayer.Position - Vector2.Unit;
 
-        //todo 현재 PassedRoad가 Item 위에 출력되는 문제가 있음
         if (gameObject is Player player)
         {
-            if (GameManager.GamePlayer.IsUseNavigation)
-            {
-                foreach (var position in player.PassedRoad)
-                {
-                    if (!IsInRenderRange(position, halfRenderSize, out int xPos, out int yPos)) continue;
-
-                    Console.SetCursorPosition(xPos + _mapXOffset, yPos);
-                    Print(ConsoleColor.DarkBlue, 'x');
-                }
-            }
             //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
             Console.SetCursorPosition(_mapCenter.X - halfRenderSize.X + 1 + _mapXOffset, _mapCenter.Y);
         }
@@ -425,6 +410,28 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
             Console.SetCursorPosition(xPos + _mapXOffset, yPos);
         }
         Print(gameObject.Color, gameObject.Symbol);
+    }
+
+    //! IPassedRoadPrint
+    public void PrintPassedRoad(List<Vector2> objectsPosition)
+    {
+        if (!GameManager.GamePlayer.IsUseNavigation)
+            return;
+        GetRenderSize(out int renderXSize, out int renderYSize, out Vector2 halfRenderSize);
+        //# 나누기 오차 보정으로 + 1
+        halfRenderSize.X += 1;
+
+        _moveOffset = GameManager.GamePlayer.Position - Vector2.Unit;
+
+        foreach (var position in GameManager.GamePlayer.PassedRoad)
+        {
+            if (!IsInRenderRange(position, halfRenderSize, out int xPos, out int yPos))
+                continue;
+
+            Console.SetCursorPosition(xPos + _mapXOffset, yPos);
+
+            Print(ConsoleColor.DarkBlue, 'x');
+        }
     }
 
     private bool IsInRenderRange(Vector2 position, Vector2 halfRenderSize, out int xPos, out int yPos)

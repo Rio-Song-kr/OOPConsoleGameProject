@@ -9,11 +9,12 @@ public class LevelScene01 : Level
 
         //# 문 추가
         GameObjects = new List<GameObject>();
-        GameObjects.Add(
-            new DoorPlace(SceneName.Level02,
-                new Vector2(
-                    GameManager.Instance.MazeSize[SceneName.Level01].X - 2,
-                    GameManager.Instance.MazeSize[SceneName.Level01].Y - 2)));
+        Vector2 position = new Vector2(
+            GameManager.Instance.MazeSize[SceneName.Level01].X - 2,
+            GameManager.Instance.MazeSize[SceneName.Level01].Y - 2
+        );
+        GameObjects.Add(new DoorPlace(SceneName.Level02, position));
+        ObjectsPosition.Add(position);
     }
 
     public override void OnEnter()
@@ -42,5 +43,13 @@ public class LevelScene01 : Level
         Item key = GameManager.ObjectPools.GetItem("Key");
         key.SetPosition(new Vector2(position.X, position.Y));
         GameObjects.Add(key);
+        ObjectsPosition.Add(key.Position);
+
+        //# 내비게이션 추가
+        Item navigation = GameManager.ObjectPools.GetItem("Navigation");
+        position = Util.RandomCoordinates(SceneName.Level01, GameObjects);
+        navigation.SetPosition(new Vector2(3, 1));
+        GameObjects.Add(navigation);
+        ObjectsPosition.Add(navigation.Position);
     }
 }

@@ -12,11 +12,12 @@ public class LevelScene02 : Level
 
         //# 문 추가
         GameObjects = new List<GameObject>();
-        GameObjects.Add(
-            new DoorPlace(SceneName.Level03,
-                new Vector2(
-                    GameManager.Instance.MazeSize[SceneName.Level02].X - 2,
-                    GameManager.Instance.MazeSize[SceneName.Level02].Y - 2)));
+        Vector2 position = new Vector2(
+            GameManager.Instance.MazeSize[SceneName.Level02].X - 2,
+            GameManager.Instance.MazeSize[SceneName.Level02].Y - 2
+        );
+        GameObjects.Add(new DoorPlace(SceneName.Level03, position));
+        ObjectsPosition.Add(position);
     }
 
     public override void OnEnter()
@@ -35,11 +36,13 @@ public class LevelScene02 : Level
             position = Util.RandomCoordinates(SceneName.Level02, GameObjects);
             _dungeon = new DungeonPlace(SceneName.Dungeon01, new Vector2(position.X, position.Y));
             GameObjects.Add(_dungeon);
+            ObjectsPosition.Add(_dungeon.Position);
         }
         else
         {
             GameManager.GamePlayer.SetPosition(new Vector2(_dungeon.Position.X, _dungeon.Position.Y));
             GameObjects.Remove(_dungeon);
+            ObjectsPosition.Remove(_dungeon.Position);
         }
         Area = GameManager.Instance.Area[SceneName.Level02];
     }
