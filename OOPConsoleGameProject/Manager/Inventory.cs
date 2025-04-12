@@ -67,7 +67,7 @@ public class Inventory
     {
         if (currentItemIndex == -1) return;
 
-        if (_items[currentItemIndex] is IUsable usableItem)
+        if (_items[currentItemIndex] is IUsable usableItem && _items[currentItemIndex] is Navigation)
         {
             usableItem.Use();
         }
@@ -86,4 +86,6 @@ public class Inventory
         PrintItemInfo = true;
         _ui.PrintItemInfo(item);
     }
+
+    public string GetSelectedItem() => _items[currentItemIndex].Name;
 }

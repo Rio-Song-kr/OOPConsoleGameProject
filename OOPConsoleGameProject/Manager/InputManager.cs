@@ -24,6 +24,11 @@ public class InputManager
 
         if (GameManager.Inventory.PrintItemInfo)
         {
+            if (input == ConsoleKey.U)
+            {
+                OnUse();
+                GameManager.Log.Log($"{GameManager.Inventory.GetSelectedItem()}을/를 사용합니다.", ConsoleColor.Yellow);
+            }
             OnSelect(-1);
             GameManager.Map.ClearMap();
             GameManager.Inventory.PrintItemInfo = false;
@@ -49,10 +54,6 @@ public class InputManager
             case ConsoleKey.D2:
             case ConsoleKey.D3:
                 OnSelect(input - ConsoleKey.D1);
-                break;
-            case ConsoleKey.U:
-                //# 사용이 가능한 아이템이 열려있는 상태에서 U를 누르면 아이템 사용
-                OnUse();
                 break;
         }
         Util.Sleep(10);

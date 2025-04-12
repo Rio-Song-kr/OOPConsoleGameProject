@@ -5,6 +5,8 @@ public class Player : GameObject
     static Player _instance;
 
     public Vector2 MovedDirection { get; private set; }
+    private bool _isUseNavigation;
+    public bool IsUseNavigation { get => _isUseNavigation; }
     private Stack<Vector2> _passedRoad;
     public Stack<Vector2> PassedRoad { get => _passedRoad; private set => _passedRoad = value; }
 
@@ -50,7 +52,10 @@ public class Player : GameObject
     {
         _passedRoad = new Stack<Vector2>();
         MovedDirection = new Vector2(1, 1);
+        _isUseNavigation = false;
     }
+
+    public void UseNavigation() { _isUseNavigation = true; }
 
     public override bool TryInteract(GameObject gameObject) { return false; }
 }

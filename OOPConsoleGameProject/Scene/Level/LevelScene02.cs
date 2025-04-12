@@ -3,7 +3,7 @@ namespace OOPConsoleGameProject;
 //# 던전이 없는 넓은 맵
 public class LevelScene02 : Level
 {
-    private DungeonPlace _dungeon;
+    // private DungeonPlace _dungeon;
 
     public LevelScene02()
     {
@@ -46,6 +46,12 @@ public class LevelScene02 : Level
         position = Util.RandomCoordinates(SceneName.Level01, GameObjects);
         musicBox.SetPosition(new Vector2(position.X, position.Y));
         GameObjects.Add(musicBox);
+
+        //# 내비게이션 추가
+        Item navigation = GameManager.ObjectPools.GetItem("Navigation");
+        position = Util.RandomCoordinates(SceneName.Level01, GameObjects);
+        navigation.SetPosition(new Vector2(position.X, position.Y));
+        GameObjects.Add(navigation);
     }
 
     //todo 던전은 추후 적용

@@ -354,14 +354,25 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
 
     public void PrintItemInfo(Item item)
     {
-        string[] descriptions = new string[item.Description.Count + 2];
-        descriptions[0] = new string($"----------     {item.Name}     ----------");
+        string[] descriptions;
+        if (item is Navigation)
+        {
+            descriptions = new string[item.Description.Count + 3];
+            descriptions[item.Description.Count + 1] = "아이템을 사용하려면 U 키를 눌러주세요.";
+            descriptions[item.Description.Count + 2] = "맵으로 이동하려면 아무 키나 누르세요.";
+        }
+        else
+        {
+            descriptions = new string[item.Description.Count + 2];
+            descriptions[item.Description.Count + 1] = "맵으로 이동하려면 아무 키나 누르세요.";
+        }
 
+        descriptions[0] = new string($"----------     {item.Name}     ----------");
         for (int i = 0; i < item.Description.Count; i++)
         {
             descriptions[i + 1] = item.Description[i];
         }
-        descriptions[item.Description.Count + 1] = "맵으로 이동하려면 아무 키나 누르세요.";
+
 
         ClearMapArea();
         PrintTextAtCenter(descriptions, false);
@@ -391,16 +402,19 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
 
         if (gameObject is Player player)
         {
-            foreach (var position in player.PassedRoad)
+            if (GameManager.GamePlayer.IsUseNavigation)
             {
-                // int xPos = _mapCenter.X - halfRenderSize.X + 1 + _mapXOffset + position.X - player.Position.X;
-                // int yPos = _mapCenter.Y + position.Y - player.Position.Y;
-                int xPos = position.X + _mapCenter.X - halfRenderSize.X - _moveOffset.X;
-                int yPos = position.Y + _mapCenter.Y - 1 - _moveOffset.Y;
-                if (!IsInRenderRange(halfRenderSize, xPos, yPos)) continue;
+                foreach (var position in player.PassedRoad)
+                {
+                    // int xPos = _mapCenter.X - halfRenderSize.X + 1 + _mapXOffset + position.X - player.Position.X;
+                    // int yPos = _mapCenter.Y + position.Y - player.Position.Y;
+                    int xPos = position.X + _mapCenter.X - halfRenderSize.X - _moveOffset.X;
+                    int yPos = position.Y + _mapCenter.Y - 1 - _moveOffset.Y;
+                    if (!IsInRenderRange(halfRenderSize, xPos, yPos)) continue;
 
-                Console.SetCursorPosition(xPos + _mapXOffset, yPos);
-                Print(ConsoleColor.DarkBlue, 'x');
+                    Console.SetCursorPosition(xPos + _mapXOffset, yPos);
+                    Print(ConsoleColor.DarkBlue, 'x');
+                }
             }
             //# Player는 Center에 고정
             //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
