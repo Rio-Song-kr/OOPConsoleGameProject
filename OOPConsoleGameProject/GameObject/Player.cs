@@ -3,11 +3,16 @@ namespace OOPConsoleGameProject;
 public class Player : GameObject
 {
     static Player _instance;
+
     public Vector2 MovedDirection { get; private set; }
+    private Stack<Vector2> _passedRoad;
+    public Stack<Vector2> PassedRoad { get => _passedRoad; private set => _passedRoad = value; }
 
     private Player(Vector2 position) : base(ConsoleColor.Magenta, 'P', position, false)
     {
         MovedDirection = new Vector2(0, 0);
+        _passedRoad = new Stack<Vector2>();
+        PassedRoad = new Stack<Vector2>();
     }
 
     public static Player GetInstance()
@@ -26,6 +31,8 @@ public class Player : GameObject
 
         if (IsMovable(targetPosition))
         {
+            if (_passedRoad.Count != 0 && targetPosition == _passedRoad.Peek()) _passedRoad.Pop();
+            else _passedRoad.Push(Position);
             Position = targetPosition;
             MovedDirection = direction;
         }
@@ -37,6 +44,12 @@ public class Player : GameObject
         if (GameManager.Map.MapTile[position.Y, position.X] == TileType.Wall) return false;
 
         return true;
+    }
+
+    public void Init()
+    {
+        _passedRoad = new Stack<Vector2>();
+        MovedDirection = new Vector2(1, 1);
     }
 
     public override bool TryInteract(GameObject gameObject) { return false; }

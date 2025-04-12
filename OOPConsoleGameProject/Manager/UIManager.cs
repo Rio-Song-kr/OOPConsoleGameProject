@@ -382,39 +382,61 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
         };
 
         //# 나누기 오차 보정으로 + 1
-        int halfXRenderSize = renderXSize / 2 + 1;
-        int halfYRenderSize = renderYSize / 2;
+        Vector2 halfRenderSize = new Vector2(
+            renderXSize / 2 + 1,
+            renderYSize / 2
+        );
 
-        if (gameObject is Player)
+        _moveOffset = GameManager.GamePlayer.Position - Vector2.Unit;
+
+        if (gameObject is Player player)
         {
+            foreach (var position in player.PassedRoad)
+            {
+                // int xPos = _mapCenter.X - halfRenderSize.X + 1 + _mapXOffset + position.X - player.Position.X;
+                // int yPos = _mapCenter.Y + position.Y - player.Position.Y;
+                int xPos = position.X + _mapCenter.X - halfRenderSize.X - _moveOffset.X;
+                int yPos = position.Y + _mapCenter.Y - 1 - _moveOffset.Y;
+                if (!IsInRenderRange(halfRenderSize, xPos, yPos)) continue;
+
+                Console.SetCursorPosition(xPos + _mapXOffset, yPos);
+                Print(ConsoleColor.DarkBlue, 'x');
+            }
             //# Player는 Center에 고정
             //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
-            Console.SetCursorPosition(_mapCenter.X - halfXRenderSize + 1 + _mapXOffset, _mapCenter.Y);
+            Console.SetCursorPosition(_mapCenter.X - halfRenderSize.X + 1 + _mapXOffset, _mapCenter.Y);
         }
         else
         {
-            _moveOffset = GameManager.GamePlayer.Position - Vector2.Unit;
-
-            int xPos = gameObject.Position.X + _mapCenter.X - halfXRenderSize - _moveOffset.X;
+            int xPos = gameObject.Position.X + _mapCenter.X - halfRenderSize.X - _moveOffset.X;
             int yPos = gameObject.Position.Y + _mapCenter.Y - 1 - _moveOffset.Y;
 
-
-            if (xPos < 0 || xPos >= _mapPosition.EndPosition.X || yPos < 0 || yPos > _mapPosition.EndPosition.Y)
-                return;
-
-            Vector2 playerPosition = new Vector2(_mapCenter.X - halfXRenderSize + 1, _mapCenter.Y);
-
-            if (xPos < playerPosition.X - halfXRenderSize + 1 ||
-                xPos > playerPosition.X + halfXRenderSize - 1 ||
-                yPos < playerPosition.Y - halfYRenderSize + 1 ||
-                yPos > playerPosition.Y + halfYRenderSize - 1)
-                return;
+            if (!IsInRenderRange(halfRenderSize, xPos, yPos)) return;
 
             //# MapXOffset는 현재 중앙 출력이 아닌 것으로 보여져 offset 값으로 추가함
             Console.SetCursorPosition(xPos + _mapXOffset, yPos);
         }
-        Console.ForegroundColor = gameObject.Color;
-        Console.Write(gameObject.Symbol);
+        Print(gameObject.Color, gameObject.Symbol);
+    }
+    private bool IsInRenderRange(Vector2 halfRenderSize, int xPos, int yPos)
+    {
+        Vector2 playerPosition = new Vector2(_mapCenter.X - halfRenderSize.X + 1, _mapCenter.Y);
+
+        if (xPos < 0 || xPos >= _mapPosition.EndPosition.X || yPos < 0 || yPos > _mapPosition.EndPosition.Y)
+            return false;
+
+
+        if (xPos < playerPosition.X - halfRenderSize.X + 1 ||
+            xPos > playerPosition.X + halfRenderSize.X - 1 ||
+            yPos < playerPosition.Y - halfRenderSize.Y ||
+            yPos > playerPosition.Y + halfRenderSize.Y)
+            return false;
+        return true;
+    }
+    private static void Print(ConsoleColor color, char symbol)
+    {
+        Console.ForegroundColor = color;
+        Console.Write(symbol);
         Console.ResetColor();
     }
 }

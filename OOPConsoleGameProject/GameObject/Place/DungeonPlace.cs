@@ -10,6 +10,7 @@ public class DungeonPlace : Place
             return false;
 
         GameManager.Scene.Move(SceneName);
+        GameManager.GamePlayer.Init();
         return true;
     }
 }
