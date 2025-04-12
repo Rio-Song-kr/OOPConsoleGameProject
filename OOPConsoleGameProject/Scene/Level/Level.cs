@@ -2,25 +2,6 @@ namespace OOPConsoleGameProject;
 
 public class Level : Scene
 {
-    protected TileType[,] MapTile;
-    protected List<GameObject> GameObjects;
-    protected RenderArea Area;
-
-    public override void Render()
-    {
-        if (!GameManager.Inventory.PrintItemInfo)
-        {
-            // GameManager.Map.Print();
-            GameManager.Map.Print(Area);
-            foreach (var gameObject in GameObjects)
-            {
-                gameObject.Print();
-            }
-
-            GameManager.GamePlayer.Print();
-        }
-    }
-
     public override void Input() { GameManager.Input.GetKey(); }
 
     public override void Update()
@@ -38,6 +19,7 @@ public class Level : Scene
                         GameManager.Inventory.IsFull();
                         continue;
                     }
+                    ObjectsPosition.Remove(gameObject.Position);
                     GameObjects.Remove(gameObject);
                     break;
                 }

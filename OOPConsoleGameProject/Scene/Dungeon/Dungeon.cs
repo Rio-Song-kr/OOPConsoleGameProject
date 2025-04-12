@@ -2,26 +2,12 @@
 
 public class Dungeon : Scene
 {
-    protected TileType[,] MapTile;
-    protected List<GameObject> GameObjects;
     protected List<Goal> Goals;
-    protected RenderArea Area;
 
     public Dungeon()
     {
         GameObjects = new List<GameObject>();
         Goals = new List<Goal>();
-    }
-
-    public override void Render()
-    {
-        GameManager.Map.Print(Area);
-        foreach (var gameObject in GameObjects)
-        {
-            gameObject.Print();
-        }
-
-        GameManager.GamePlayer.Print();
     }
 
     public override void Input() { GameManager.Input.GetKey(); }
