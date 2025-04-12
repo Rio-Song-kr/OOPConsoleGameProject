@@ -22,7 +22,6 @@ public abstract class GameObject : IInteractable
 
     public void Print()
     {
-        //todo 현재 Limited Render만 적용됨, RenderFull은 별도 처리 필요함
         if (Position.X < MapOffset.X || Position.Y < MapOffset.Y) return;
         _print.PrintObject(this);
     }
