@@ -2,9 +2,6 @@
 
 public class Inventory
 {
-    //todo 현재 인벤토리에서 제거하면서 Inventory에 표시되는 아이템을 앞으로 당겨야할 듯
-    //todo 아니면 배열과 queue이용? - queue비어있는 index를 저장 -> 아이템이 추가횔 때 queue꺼내서 사용
-    //todo 아이템을 사용할 때, queue 목록과 비교하여, 일치하면 아무것도 하지 않음, 그게 아니면 배열로 접근해서 사용
     private IItemPrint _ui;
 
     private static Inventory _instance;

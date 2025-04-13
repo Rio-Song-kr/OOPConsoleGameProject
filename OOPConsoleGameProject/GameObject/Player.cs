@@ -31,6 +31,8 @@ public class Player : GameObject
     {
         Vector2 targetPosition = Position + direction;
 
+        if (GameManager.Inventory.PrintItemInfo || GameManager.ObjectPools.IsChestOpened) return;
+
         if (IsMovable(targetPosition))
         {
             if (_passedRoad.Count != 0 && targetPosition == _passedRoad.Peek()) _passedRoad.Pop();
@@ -42,7 +44,6 @@ public class Player : GameObject
 
     private bool IsMovable(Vector2 position)
     {
-        // if (GameManager.Map.MapTile[position.Y - MapOffset.Y, position.X - MapOffset.X] == TileType.Wall) return false;
         if (GameManager.Map.MapTile[position.Y, position.X] == TileType.Wall) return false;
 
         return true;

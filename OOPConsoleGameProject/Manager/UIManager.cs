@@ -166,15 +166,18 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
         }
     }
 
-    //todo 추후 다른 작업 완료 후 구현
-    /*
-    public void PrintChest(char[] message, Vector2 position)
+    public void PrintChest(string message, Vector2 position)
     {
         char[,] arrows = new char[,]
         {
             { '○', '○', '○', '○' },
             { ' ', ' ', ' ', ' ' },
             { '○', '○', '○', '○' }
+        };
+        string[] texts =
+        {
+            "버튼 누르기 : Enter / 상자 열기 : Space",
+            "취소 : Q"
         };
 
         for (int i = 0; i < message.Length; i++)
@@ -184,17 +187,21 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
 
         char selected = '●';
 
-        if (position.Y == 0 || position.Y == 1) arrows[position.Y, position.X] = selected;
+        if (position.Y == 0 || position.Y == 1) arrows[position.Y * 2, position.X] = selected;
 
-        string[] descriptions = new string[4];
-        descriptions[3] = "E  n  t  e  r";
+        string[] descriptions = new string[arrows.GetLength(0) + texts.Length];
+
+        for (int i = arrows.GetLength(0); i < descriptions.Length; i++)
+        {
+            descriptions[i] = texts[i - arrows.GetLength(0)];
+        }
 
         int rowCount = arrows.GetLength(0);
         int columnCount = arrows.GetLength(1);
 
         for (int i = 0; i < rowCount; i++)
         {
-            char[] rowChars = new char[columnCount * 4];
+            char[] rowChars = new char[columnCount * 3 + 1];
             for (int j = 0; j < columnCount; j++)
             {
                 rowChars[j * 4] = arrows[i, j];
@@ -240,31 +247,8 @@ public class UIManager : ILogPrint, IItemPrint, IMapPrint, ITextPrint, IGameObje
         // (x,2)
         //      E N T E R
     }
-    */
 
     //! IMapPrint
-    //# 던전의 경우, PrintMap을 사용
-    // public void PrintMap(TileType[,] mapTile, Vector2 mapSize)
-    // {
-    //     int xPosition = _mapPosition.StartPosition.X + _mapStartOffset.X;
-    //     int yPosition = _mapPosition.StartPosition.Y + _mapStartOffset.Y;
-    //
-    //     for (int y = 0; y < mapSize.Y; y++)
-    //     {
-    //         if (y >= _mapPosition.EndPosition.Y - 1)
-    //             break;
-    //         Console.SetCursorPosition(xPosition, yPosition + y);
-    //         for (int x = 0; x < mapSize.X; x++)
-    //         {
-    //             if (x >= _mapPosition.EndPosition.X - 1)
-    //                 break;
-    //
-    //             if (mapTile[y, x] == TileType.Wall) Console.Write(Maze.Wall);
-    //             else Console.Write(' ');
-    //         }
-    //     }
-    // }
-
     private void GetRenderSize(out int renderXSize, out int renderYSize, out Vector2 halfRenderSize)
     {
         (renderXSize, renderYSize) = _renderArea switch

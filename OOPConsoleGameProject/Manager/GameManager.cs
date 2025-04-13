@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace OOPConsoleGameProject;
 
 public sealed class GameManager
@@ -134,8 +136,22 @@ public sealed class GameManager
         );
 
         //# Field Object 생성
-        _objectPools.AddFieldObject(new Chest("Letter Chest", new Vector2(-1, -1)));
-        _objectPools.AddFieldObject(new Chest("Music Chest", new Vector2(-1, -1)));
+        _objectPools.AddFieldObject(
+            new Chest(
+                "Letter Chest",
+                new Vector2(-1, -1),
+                new char[] { '9', '5', '8', '2' },
+                new char[] { '1', '1', '1', '1' },
+                ChestType.LetterChest)
+        );
+        _objectPools.AddFieldObject(
+            new Chest(
+                "Music Chest",
+                new Vector2(-1, -1),
+                new char[] { 'C', 'E', 'G', 'D' },
+                new char[] { 'C', 'C', 'C', 'C' },
+                ChestType.MusicBoxChest)
+        );
         _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
         _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));
         _objectPools.AddFieldObject(new Rock(new Vector2(-1, -1)));

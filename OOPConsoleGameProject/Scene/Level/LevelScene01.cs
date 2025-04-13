@@ -15,6 +15,12 @@ public class LevelScene01 : Level
         );
         GameObjects.Add(new DoorPlace(SceneName.Level02, position));
         ObjectsPosition.Add(position);
+
+        // position = Util.RandomCoordinates(SceneName.Level01, GameObjects);
+        FieldObject chest = GameManager.ObjectPools.GetFieldObject("Letter Chest", 0);
+        // chest.SetPosition(position);
+        chest.SetPosition(new Vector2(1, 3));
+        GameObjects.Add(chest);
     }
 
     public override void OnEnter()
@@ -45,11 +51,10 @@ public class LevelScene01 : Level
         GameObjects.Add(key);
         ObjectsPosition.Add(key.Position);
 
-        //# 내비게이션 추가
-        Item navigation = GameManager.ObjectPools.GetItem("Navigation");
-        position = Util.RandomCoordinates(SceneName.Level01, GameObjects);
-        navigation.SetPosition(new Vector2(3, 1));
-        GameObjects.Add(navigation);
-        ObjectsPosition.Add(navigation.Position);
+        //# 편지 추가
+        Item letter = GameManager.ObjectPools.GetItem("Letter");
+        letter.SetPosition(new Vector2(3, 1));
+        GameObjects.Add(letter);
+        ObjectsPosition.Add(letter.Position);
     }
 }

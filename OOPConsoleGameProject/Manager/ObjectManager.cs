@@ -1,10 +1,13 @@
-﻿namespace OOPConsoleGameProject;
+﻿using System.ComponentModel.Design.Serialization;
+
+namespace OOPConsoleGameProject;
 
 public class ObjectManager
 {
     private static ObjectManager _instance;
     private Dictionary<string, Item> _itemPools;
     private Dictionary<(string, int), FieldObject> _fieldObjectPools;
+    public bool IsChestOpened = false;
 
     private ObjectManager()
     {
