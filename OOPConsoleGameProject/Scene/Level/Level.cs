@@ -56,13 +56,13 @@ public class Level : Scene
                                 GameManager.ObjectPools.IsChestOpened = false;
                                 return;
                         }
-                        GameManager.Map.ClearMap();
-                        GameManager.ObjectPools.IsChestOpened = false;
-                        //todo 문제점 : 만약 힌트를 얻기 전에 상자를 만난다면, 더 이상 진행할 수 없음
-                        //todo 임시로 Peek처리를 했지만, TryInteract(); 토글식으로 확인을 해야할 듯
-                        //todo 겹치면 off하여 더 이상 실행 X -> 벗어나면 ON하여 다시 겹쳤을 때 실행
-                        GameManager.GamePlayer.SetPosition(GameManager.GamePlayer.PassedRoad.Peek());
                     }
+                    GameManager.Map.ClearMap();
+                    GameManager.ObjectPools.IsChestOpened = false;
+                    //todo 문제점 : 만약 힌트를 얻기 전에 상자를 만난다면, 더 이상 진행할 수 없음
+                    //todo 임시로 Peek처리를 했지만, TryInteract(); 토글식으로 확인을 해야할 듯
+                    //todo 겹치면 off하여 더 이상 실행 X -> 벗어나면 ON하여 다시 겹쳤을 때 실행
+                    GameManager.GamePlayer.SetPosition(GameManager.GamePlayer.PassedRoad.Peek());
                 }
             }
         }
